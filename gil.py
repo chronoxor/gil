@@ -261,13 +261,14 @@ def show_help():
     print("\thelp - show this help")
     print("\tcontext - show Git Links context")
     print("\tclone - clone git repositories")
+    print("\tclone link - clone & link git repositories")
     print("\tlink - link git repositories")
     sys.exit(1)
 
 
 def main():
     # Show help message
-    if len(sys.argv) == 1:
+    if len(sys.argv) <= 1:
         show_help()
 
     # Get the current working directory
@@ -284,7 +285,10 @@ def main():
     elif sys.argv[1] == "context":
         context.show()
     elif sys.argv[1] == "clone":
-        context.clone(sys.argv[2:])
+        link = len(sys.argv) > 2 and sys.argv[2] == "link"
+        context.clone(sys.argv[3 if link else 2:])
+        if link:
+            context.link()
     elif sys.argv[1] == "link":
         context.link()
     else:

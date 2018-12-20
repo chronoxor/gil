@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="42c8dacc-5624-48f4-9322-565b28e2b379" name="Default Changelist" comment="" />
+    <list default="true" id="42c8dacc-5624-48f4-9322-565b28e2b379" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/GitLinks.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/GitLinks.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gil.py" beforeDir="false" afterPath="$PROJECT_DIR$/gil.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -10,10 +15,10 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/GitLinks$gil.coverage" NAME="gil Coverage Results" MODIFIED="1545321821117" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sample" />
+    <SUITE FILE_PATH="coverage/GitLinks$gil.coverage" NAME="gil Coverage Results" MODIFIED="1545323298961" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sample" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -53,6 +58,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -64,7 +70,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -101,7 +106,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/gil.py" />
-      <option name="PARAMETERS" value="link" />
+      <option name="PARAMETERS" value="clone link" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -140,7 +145,7 @@
       <window_info anchor="bottom" id="Python Console" order="12" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.55649036" />
       <window_info anchor="bottom" id="Terminal" order="11" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20551509" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20759626" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="4" />
       <window_info anchor="right" id="SciView" order="3" />
@@ -171,7 +176,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="13" />
+      <option name="time" value="14" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -179,9 +184,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2720">
           <caret line="163" selection-start-line="163" selection-end-line="163" />
-          <folding>
-            <element signature="e#225#234#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -196,9 +198,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3961">
           <caret line="236" lean-forward="true" selection-start-line="236" selection-end-line="236" />
-          <folding>
-            <element signature="e#225#234#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -213,9 +212,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2329">
           <caret line="140" selection-start-line="140" selection-end-line="140" />
-          <folding>
-            <element signature="e#225#234#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -230,9 +226,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1054">
           <caret line="65" column="48" lean-forward="true" selection-start-line="65" selection-start-column="48" selection-end-line="65" selection-end-column="48" />
-          <folding>
-            <element signature="e#225#234#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -259,11 +252,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/gil.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="75" lean-forward="true" selection-start-line="75" selection-end-line="75" />
-          <folding>
-            <element signature="e#225#234#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="391">
+          <caret line="299" lean-forward="true" selection-start-line="299" selection-end-line="299" />
         </state>
       </provider>
     </entry>
