@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="42c8dacc-5624-48f4-9322-565b28e2b379" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/GitLinks.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/GitLinks.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gil.py" beforeDir="false" afterPath="$PROJECT_DIR$/gil.py" afterDir="false" />
-    </list>
+    <list default="true" id="42c8dacc-5624-48f4-9322-565b28e2b379" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,17 +12,7 @@
     <SUITE FILE_PATH="coverage/GitLinks$gil.coverage" NAME="gil Coverage Results" MODIFIED="1545323298961" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sample" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/gil.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="321">
-              <caret line="216" lean-forward="true" selection-start-line="216" selection-end-line="216" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -48,8 +32,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="387" />
-    <option name="y" value="57" />
+    <option name="x" value="330" />
+    <option name="y" value="240" />
     <option name="width" value="1982" />
     <option name="height" value="964" />
   </component>
@@ -59,17 +43,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="GitLinks" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GitLinks" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
+      <pane id="ProjectPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -133,16 +107,15 @@
       <updated>1545257804274</updated>
       <workItem from="1545257806296" duration="771000" />
       <workItem from="1545258838748" duration="12428000" />
-      <workItem from="1545340283769" duration="4217000" />
+      <workItem from="1545340283769" duration="4526000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17416000" />
+    <option name="totallyTimeSpent" value="17725000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="387" y="57" width="1982" height="964" extended-state="0" />
-    <editor active="true" />
+    <frame x="330" y="240" width="1982" height="964" extended-state="0" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20967741" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
