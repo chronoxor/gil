@@ -74,8 +74,8 @@ class GilContext(object):
                     stack.extend(self.discover_dir(path))
                     stack.sort()
 
-    def link(self, path):
-        current = os.path.abspath(path)
+    def link(self, args):
+        current = os.path.abspath(self.path)
 
         # Recursive discover the parent path
         parent = os.path.abspath(os.path.join(current, os.pardir))
