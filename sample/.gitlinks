@@ -1,0 +1,16 @@
+# Projects
+CppBenchmark CppBenchmark https://github.com/chronoxor/CppBenchmark.git master
+CppCommon CppCommon https://github.com/chronoxor/CppCommon.git master
+CppLogging CppLogging https://github.com/chronoxor/CppLogging.git master
+CppTemplate CppTemplate https://github.com/chronoxor/CppTemplate.git master
+
+# Modules
+Catch2 modules/Catch2 https://github.com/catchorg/Catch2.git master
+cpp-optparse modules/cpp-optparse https://github.com/weisslj/cpp-optparse.git master
+fmt modules/fmt https://github.com/fmtlib/fmt.git master
+HdrHistogram modules/HdrHistogram https://github.com/HdrHistogram/HdrHistogram_c.git master
+zlib modules/zlib https://github.com/madler/zlib.git master
+
+# Scripts
+build scripts/build https://github.com/chronoxor/CppBuildScripts.git master
+cmake scripts/cmake https://github.com/chronoxor/CppCMakeScripts.git master

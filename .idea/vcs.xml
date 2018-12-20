@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/sample/CppBenchmark" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/sample/CppCommon" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/sample/CppLogging/build" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/sample/CppLogging/cmake" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/sample/CppLogging/modules/Catch2" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/sample/CppLogging/modules/cpp-optparse" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/sample/CppLogging/modules/zlib" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/sample/CppTemplate" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/sample/modules/Catch2" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/sample/modules/HdrHistogram" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/sample/modules/cpp-optparse" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/sample/modules/fmt" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/sample/modules/zlib" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/sample/scripts/build" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/sample/scripts/cmake" vcs="Git" />
+  </component>
+</project>
