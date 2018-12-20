@@ -19,8 +19,8 @@
       <file leaf-file-name="gil.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/gil.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="240" column="8" selection-start-line="240" selection-start-column="8" selection-end-line="240" selection-end-column="8" />
+            <state relative-caret-position="130">
+              <caret line="235" column="32" selection-start-line="235" selection-start-column="15" selection-end-line="235" selection-end-column="32" />
               <folding>
                 <element signature="e#225#234#0" expanded="true" />
               </folding>
@@ -189,13 +189,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/gil.py</url>
-          <line>237</line>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
-      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">
@@ -291,8 +284,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/gil.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="240" column="8" selection-start-line="240" selection-start-column="8" selection-end-line="240" selection-end-column="8" />
+        <state relative-caret-position="130">
+          <caret line="235" column="32" selection-start-line="235" selection-start-column="15" selection-end-line="235" selection-end-column="32" />
           <folding>
             <element signature="e#225#234#0" expanded="true" />
           </folding>

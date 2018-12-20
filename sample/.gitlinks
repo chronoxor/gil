@@ -2,7 +2,6 @@
 CppBenchmark CppBenchmark https://github.com/chronoxor/CppBenchmark.git master
 CppCommon CppCommon https://github.com/chronoxor/CppCommon.git master
 CppLogging CppLogging https://github.com/chronoxor/CppLogging.git master
-CppTemplate CppTemplate https://github.com/chronoxor/CppTemplate.git master
 
 # Modules
 Catch2 modules/Catch2 https://github.com/catchorg/Catch2.git master
