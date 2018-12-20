@@ -74,8 +74,8 @@ class GilContext(object):
                     stack.extend(self.discover_dir(path))
                     stack.sort()
 
-    def link(self, args):
-        current = os.path.abspath(self.path)
+    def link(self, path=None):
+        current = os.path.abspath(self.path if path is None else path)
 
         # Recursive discover the parent path
         parent = os.path.abspath(os.path.join(current, os.pardir))
@@ -286,7 +286,7 @@ def main():
     elif sys.argv[1] == "clone":
         context.clone(sys.argv[2:])
     elif sys.argv[1] == "link":
-        context.link(sys.argv[2:])
+        context.link()
     else:
         print("Unknown command: %s" % sys.argv[1])
 
