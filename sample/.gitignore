@@ -1,6 +1,6 @@
-# Temporary directories
-CppBenchmark
-CppCommon
-CppLogging
-modules
-scripts
+# Ignore everything
+*
+
+# Except some necessary files
+!.gitignore
+!.gitlinks
