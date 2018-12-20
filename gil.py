@@ -67,12 +67,8 @@ class GilContext(object):
             value = stack.pop()
             path = value.path
             if not os.path.exists(path) or not os.listdir(path):
-                # Call git clone command
-                params = ["git", "clone", *args, "-b", value.branch, value.repo, value.path]
-                process = subprocess.run(params)
-                if process.returncode != 0:
-                    raise Exception("Failed to git clone %s branch \"%s\" into %s" % (value.repo, value.branch, value.path))
-
+                # Perform git clone operation
+                self.git_clone(value.path, value.repo, value.branch, args)
                 # Discover new repository and append new records to the stack
                 if os.path.exists(path) and os.listdir(path):
                     stack.extend(self.discover_dir(path))
@@ -143,26 +139,16 @@ class GilContext(object):
                         if real_path != src_path:
                             # Re-create the link
                             self.create_link(src_path, dst_path)
+                            self.git_hide(dst_path)
                 else:
                     self.create_link(src_path, dst_path)
+                    self.git_hide(dst_path)
             # Validate Git Link path
             if not found or not os.path.exists(gil_path) or not os.listdir(gil_path):
                 raise Exception("%s:%d: Invalid Git Links path! Please check the %s git project in %s" % (filename, index, gil_name, gil_path))
             index += 1
         file.close()
         return result
-
-    @staticmethod
-    def create_link(src_path, dst_path):
-        # Remove existing file, link or folder
-        if os.path.exists(dst_path):
-            if os.path.isdir(dst_path):
-                os.rmdir(dst_path)
-            else:
-                os.remove(dst_path)
-        # Create the link
-        os.symlink(src_path, dst_path, target_is_directory=True)
-        print("Update Git Link: %s -> %s" % (src_path, dst_path))
 
     def discover(self, path):
         current = os.path.abspath(path)
@@ -215,6 +201,47 @@ class GilContext(object):
             index += 1
         file.close()
         return result
+
+    # Filesystem methods
+
+    @staticmethod
+    def create_link(src_path, dst_path):
+        # Remove existing file, link or folder
+        if os.path.exists(dst_path):
+            if os.path.isdir(dst_path):
+                os.rmdir(dst_path)
+            else:
+                os.remove(dst_path)
+        # Create the link
+        os.symlink(src_path, dst_path, target_is_directory=True)
+        print("Update Git Link: %s -> %s" % (src_path, dst_path))
+
+    # Git methods
+
+    @staticmethod
+    def git_clone(path, repo, branch, args):
+        # Call git clone command
+        params = ["git", "clone", *args, "-b", branch, repo, path]
+        process = subprocess.run(params)
+        if process.returncode != 0:
+            raise Exception("Failed to git clone %s branch \"%s\" into %s" % (repo, branch, path))
+
+    @staticmethod
+    def git_hide(path):
+        # Save the current working directory
+        working = os.getcwd()
+        # Change working directory into the current git repository
+        parent = os.path.abspath(os.path.join(path, os.pardir))
+        os.chdir(parent)
+        # Call git update-index --assume-unchanged
+        params = ["git", "update-index", "--assume-unchanged", path]
+        process = subprocess.run(params)
+        if process.returncode != 0:
+            raise Exception("Failed to git update-index in %s" % path)
+        # Restore the current working directory
+        os.chdir(working)
+
+    # Utility methods
 
     # Split a string by spaces preserving quoted substrings
     # Author: Ton van den Heuvel
