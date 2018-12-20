@@ -4,6 +4,7 @@
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/sample/CppBenchmark" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/sample/CppCommon" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/sample/CppLogging" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/sample/CppLogging/build" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/sample/CppLogging/cmake" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/sample/CppLogging/modules/Catch2" vcs="Git" />

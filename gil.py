@@ -60,96 +60,6 @@ class GilContext(object):
         for value in self.records.values():
             print(value)
 
-    def clone(self, args):
-        stack = list(self.records.values())
-        stack.sort()
-        while len(stack) > 0:
-            value = stack.pop()
-            path = value.path
-            if not os.path.exists(path) or not os.listdir(path):
-                # Perform git clone operation
-                self.git_clone(value.path, value.repo, value.branch, args)
-                # Discover new repository and append new records to the stack
-                if os.path.exists(path) and os.listdir(path):
-                    stack.extend(self.discover_dir(path))
-                    stack.sort()
-
-    def link(self, path=None):
-        current = os.path.abspath(self.path if path is None else path)
-
-        # Recursive discover the parent path
-        parent = os.path.abspath(os.path.join(current, os.pardir))
-        if parent != current:
-            self.link(parent)
-
-        # Link the current directory
-        dirs = self.link_dir(current)
-
-        # Try to link all child dirs
-        for d in dirs:
-            self.link_dir(d)
-
-    def link_dir(self, path):
-        # Try to find .gitlinks file
-        filename = os.path.join(path, ".gitlinks")
-        if not os.path.exists(filename):
-            return []
-
-        print("Updating git links: %s" % filename)
-
-        # Update .gitlinks file
-        return self.update_links(path, filename)
-
-    def update_links(self, path, filename):
-        result = []
-        file = open(filename, 'r')
-        index = 0
-        for line in file:
-            # Skip empty lines and comments
-            line = line.strip()
-            if line == '' or line.startswith('#'):
-                continue
-            # Split line into tokens
-            tokens = self.split(line)
-            if len(tokens) != 4:
-                raise Exception("%s:%d: Invalid Git Links format! Must be in the form of 'name path repo branch'" % (filename, index))
-            # Create a new Git Links record
-            gil_name = tokens[0]
-            gil_path = os.path.abspath(os.path.join(path, tokens[1]))
-            gil_repo = tokens[2]
-            gil_branch = tokens[3]
-            record = GilRecord(gil_name, gil_path, gil_repo, gil_branch)
-            # Try to find Git Links record in the records dictionary
-            found = os.path.exists(gil_path) and os.listdir(gil_path)
-            if record in self.records:
-                found = True
-                record = self.records[record]
-                # Try to check or create link to the existing Git Links record
-                src_path = record.path
-                dst_path = gil_path
-                # Add destination path to the result list
-                result.append(dst_path)
-                if src_path == dst_path:
-                    # Do nothing here...
-                    pass
-                elif os.path.exists(dst_path) and os.listdir(dst_path):
-                    # Check the link
-                    if os.path.islink(dst_path):
-                        real_path = os.readlink(dst_path)
-                        if real_path != src_path:
-                            # Re-create the link
-                            self.create_link(src_path, dst_path)
-                            self.git_hide(dst_path)
-                else:
-                    self.create_link(src_path, dst_path)
-                    self.git_hide(dst_path)
-            # Validate Git Link path
-            if not found or not os.path.exists(gil_path) or not os.listdir(gil_path):
-                raise Exception("%s:%d: Invalid Git Links path! Please check the %s git project in %s" % (filename, index, gil_name, gil_path))
-            index += 1
-        file.close()
-        return result
-
     def discover(self, path):
         current = os.path.abspath(path)
 
@@ -202,6 +112,153 @@ class GilContext(object):
         file.close()
         return result
 
+    def clone(self, args=None):
+        args = [] if args is None else args
+        stack = list(self.records.values())
+        stack.sort()
+        while len(stack) > 0:
+            value = stack.pop()
+            path = value.path
+            if not os.path.exists(path) or not os.listdir(path):
+                # Perform git clone operation
+                self.git_clone(value.path, value.repo, value.branch, args)
+                # Discover new repository and append new records to the stack
+                if os.path.exists(path) and os.listdir(path):
+                    stack.extend(self.discover_dir(path))
+                    stack.sort()
+
+    def link(self, path=None):
+        current = os.path.abspath(self.path if path is None else path)
+
+        # Recursive discover the parent path
+        parent = os.path.abspath(os.path.join(current, os.pardir))
+        if parent != current:
+            self.link(parent)
+
+        # Link the current directory
+        dirs = self.link_dir(current)
+
+        # Link all child dirs
+        for d in dirs:
+            self.link_dir(d)
+
+    def link_dir(self, path):
+        # Try to find .gitlinks file
+        filename = os.path.join(path, ".gitlinks")
+        if not os.path.exists(filename):
+            return []
+
+        print("Updating git links: %s" % filename)
+
+        # Process .gitlinks file
+        return self.update_links(path, filename)
+
+    def update_links(self, path, filename):
+        result = []
+        file = open(filename, 'r')
+        index = 0
+        for line in file:
+            # Skip empty lines and comments
+            line = line.strip()
+            if line == '' or line.startswith('#'):
+                continue
+            # Split line into tokens
+            tokens = self.split(line)
+            if len(tokens) != 4:
+                raise Exception("%s:%d: Invalid Git Links format! Must be in the form of 'name path repo branch'" % (filename, index))
+            # Create a new Git Links record
+            gil_name = tokens[0]
+            gil_path = os.path.abspath(os.path.join(path, tokens[1]))
+            gil_repo = tokens[2]
+            gil_branch = tokens[3]
+            record = GilRecord(gil_name, gil_path, gil_repo, gil_branch)
+            # Try to find Git Links record in the records dictionary
+            found = os.path.exists(gil_path) and os.listdir(gil_path)
+            if record in self.records:
+                found = True
+                record = self.records[record]
+                # Try to check or create link to the existing Git Links record
+                src_path = record.path
+                dst_path = gil_path
+                # Add destination path to the result list
+                result.append(dst_path)
+                if src_path == dst_path:
+                    # Do nothing here...
+                    pass
+                elif os.path.exists(dst_path) and os.listdir(dst_path):
+                    # Check the link
+                    if os.path.islink(dst_path):
+                        real_path = os.readlink(dst_path)
+                        if real_path != src_path:
+                            # Re-create the link
+                            self.create_link(src_path, dst_path)
+                            self.git_hide(dst_path)
+                else:
+                    self.create_link(src_path, dst_path)
+                    self.git_hide(dst_path)
+            # Validate Git Link path
+            if not found or not os.path.exists(gil_path) or not os.listdir(gil_path):
+                raise Exception("%s:%d: Invalid Git Links path! Please check the %s git project in %s" % (filename, index, gil_name, gil_path))
+            index += 1
+        file.close()
+        return result
+
+    def command(self, name, args=None):
+        def git_callback(path):
+            self.git_command(path, name, args)
+        args = [] if args is None else args
+        self.command_internal(git_callback)
+
+    def command_internal(self, callback, path=None):
+        current = os.path.abspath(self.path if path is None else path)
+
+        # Call the command for the current directory
+        self.command_dir(callback, current)
+
+    def command_dir(self, callback, path):
+        # Call the command callback
+        callback(path)
+
+        # Try to find .gitlinks file
+        filename = os.path.join(path, ".gitlinks")
+        if not os.path.exists(filename):
+            return []
+
+        print("Processing git links: %s" % filename)
+
+        # Process .gitlinks file
+        return self.command_links(callback, path, filename)
+
+    def command_links(self, callback, path, filename):
+        result = []
+        file = open(filename, 'r')
+        index = 0
+        for line in file:
+            # Skip empty lines and comments
+            line = line.strip()
+            if line == '' or line.startswith('#'):
+                continue
+            # Split line into tokens
+            tokens = self.split(line)
+            if len(tokens) != 4:
+                raise Exception("%s:%d: Invalid Git Links format! Must be in the form of 'name path repo branch'" % (filename, index))
+            # Create a new Git Links record
+            gil_name = tokens[0]
+            gil_path = os.path.abspath(os.path.join(path, tokens[1]))
+            gil_repo = tokens[2]
+            gil_branch = tokens[3]
+            record = GilRecord(gil_name, gil_path, gil_repo, gil_branch)
+            # Validate Git Link path
+            if not os.path.exists(gil_path) or not os.listdir(gil_path):
+                raise Exception("%s:%d: Invalid Git Links path! Please check the %s git project in %s" % (filename, index, gil_name, gil_path))
+            # Checkout to the required branch
+            self.git_checkout(gil_path, gil_branch)
+            # Call the command callback
+            callback(record.path)
+            index += 1
+        file.close()
+        return result
+
     # Filesystem methods
 
     @staticmethod
@@ -221,10 +278,11 @@ class GilContext(object):
     @staticmethod
     def git_clone(path, repo, branch, args):
         # Call git clone command
+        print("Running git clone %s branch \"%s\" into %s" % (repo, branch, path))
         params = ["git", "clone", *args, "-b", branch, repo, path]
         process = subprocess.run(params)
         if process.returncode != 0:
-            raise Exception("Failed to git clone %s branch \"%s\" into %s" % (repo, branch, path))
+            raise Exception("Failed to run git clone %s branch \"%s\" into %s" % (repo, branch, path))
 
     @staticmethod
     def git_hide(path):
@@ -234,10 +292,41 @@ class GilContext(object):
         parent = os.path.abspath(os.path.join(path, os.pardir))
         os.chdir(parent)
         # Call git update-index --assume-unchanged
+        print("Running: git update-index --assume-unchanged %s" % path)
         params = ["git", "update-index", "--assume-unchanged", path]
         process = subprocess.run(params)
         if process.returncode != 0:
-            raise Exception("Failed to git update-index in %s" % path)
+            raise Exception("Failed to run git update-index --assume-unchanged %s" % path)
+        # Restore the current working directory
+        os.chdir(working)
+
+    @staticmethod
+    def git_checkout(path, branch):
+        # Save the current working directory
+        working = os.getcwd()
+        # Change working directory into the current git repository
+        os.chdir(path)
+        # Call git checkout command
+        print("Running: git checkout branch \"%s\" in %s" % (branch, path))
+        params = ["git", "checkout", branch]
+        process = subprocess.run(params)
+        if process.returncode != 0:
+            raise Exception("Failed to run git checkout branch \"%s\" in %s" % (branch, path))
+        # Restore the current working directory
+        os.chdir(working)
+
+    @staticmethod
+    def git_command(path, command, args):
+        # Save the current working directory
+        working = os.getcwd()
+        # Change working directory into the current git repository
+        os.chdir(path)
+        # Call git command
+        print("Running: git %s in %s" % (command, path))
+        params = ["git", command, *args]
+        process = subprocess.run(params)
+        if process.returncode is None:
+            raise Exception("Failed to run git %s in %s" % (command, path))
         # Restore the current working directory
         os.chdir(working)
 
@@ -261,8 +350,11 @@ def show_help():
     print("\thelp - show this help")
     print("\tcontext - show Git Links context")
     print("\tclone - clone git repositories")
-    print("\tclone link - clone & link git repositories")
     print("\tlink - link git repositories")
+    print("\tupdate - update git repositories (clone & link)")
+    print("\tpull - pull git repositories")
+    print("\tpush - push git repositories")
+    print("\tcommit - commit git repositories")
     sys.exit(1)
 
 
@@ -285,12 +377,14 @@ def main():
     elif sys.argv[1] == "context":
         context.show()
     elif sys.argv[1] == "clone":
-        link = len(sys.argv) > 2 and sys.argv[2] == "link"
-        context.clone(sys.argv[3 if link else 2:])
-        if link:
-            context.link()
+        context.clone(sys.argv[2:])
     elif sys.argv[1] == "link":
         context.link()
+    elif sys.argv[1] == "update":
+        context.clone()
+        context.link()
+    elif (sys.argv[1] == "pull") or (sys.argv[1] == "push") or (sys.argv[1] == "commit"):
+        context.command(sys.argv[1], sys.argv[2:])
     else:
         print("Unknown command: %s" % sys.argv[1])
 
