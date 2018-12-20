@@ -7,10 +7,10 @@
 # License: MIT License
 # Version: 1.0.0.0
 
-import optparse
 import os
 import re
 import subprocess
+import sys
 
 
 class GilRecord(object):
@@ -31,6 +31,13 @@ class GilRecord(object):
             return False
         return True
 
+    def __lt__(self, other):
+        if not isinstance(self, other.__class__):
+            return NotImplemented
+        if not self.name < other.name:
+            return True
+        return False
+
     @property
     def __key__(self):
         return self.name, self.repo, self.branch
@@ -43,12 +50,10 @@ class GilRecord(object):
 
 
 class GilContext(object):
-    def __init__(self, path, verbose):
+    def __init__(self, path):
         self.records = {}
-        self.verbose = verbose
         self.path = os.path.abspath(path)
-        if self.verbose:
-            print("Working path: %s" % self.path)
+        print("Working path: %s" % self.path)
 
     def show(self):
         print("Git Links context:")
@@ -57,6 +62,7 @@ class GilContext(object):
 
     def clone(self, args):
         stack = list(self.records.values())
+        stack.sort()
         while len(stack) > 0:
             value = stack.pop()
             path = value.path
@@ -65,11 +71,98 @@ class GilContext(object):
                 params = ["git", "clone", *args, "-b", value.branch, value.repo, value.path]
                 process = subprocess.run(params)
                 if process.returncode != 0:
-                    raise Exception("Failed to git clone %s branch %s into %s" % (value.repo, value.branch, value.path))
+                    raise Exception("Failed to git clone %s branch \"%s\" into %s" % (value.repo, value.branch, value.path))
 
                 # Discover new repository and append new records to the stack
                 if os.path.exists(path) and os.listdir(path):
                     stack.extend(self.discover_dir(path))
+                    stack.sort()
+
+    def link(self, path):
+        current = os.path.abspath(path)
+
+        # Recursive discover the parent path
+        parent = os.path.abspath(os.path.join(current, os.pardir))
+        if parent != current:
+            self.link(parent)
+
+        # Link the current directory
+        dirs = self.link_dir(current)
+
+        # Try to link all child dirs
+        for d in dirs:
+            self.link_dir(d)
+
+    def link_dir(self, path):
+        # Try to find .gitlinks file
+        filename = os.path.join(path, ".gitlinks")
+        if not os.path.exists(filename):
+            return []
+
+        print("Updating git links: %s" % filename)
+
+        # Update .gitlinks file
+        return self.update_links(path, filename)
+
+    def update_links(self, path, filename):
+        result = []
+        file = open(filename, 'r')
+        index = 0
+        for line in file:
+            # Skip empty lines and comments
+            line = line.strip()
+            if line == '' or line.startswith('#'):
+                continue
+            # Split line into tokens
+            tokens = self.split(line)
+            if len(tokens) != 4:
+                raise Exception("%s:%d: Invalid Git Links format! Must be in the form of 'name path repo branch'" % (filename, index))
+            # Create a new Git Links record
+            gil_name = tokens[0]
+            gil_path = os.path.abspath(os.path.join(path, tokens[1]))
+            gil_repo = tokens[2]
+            gil_branch = tokens[3]
+            record = GilRecord(gil_name, gil_path, gil_repo, gil_branch)
+            # Try to find Git Links record in the records dictionary
+            found = os.path.exists(gil_path) and os.listdir(gil_path)
+            if record in self.records:
+                found = True
+                record = self.records[record]
+                # Try to check or create link to the existing Git Links record
+                src_path = record.path
+                dst_path = gil_path
+                # Add destination path to the result list
+                result.append(dst_path)
+                if src_path == dst_path:
+                    # Do nothing here...
+                    pass
+                elif os.path.exists(dst_path) and os.listdir(dst_path):
+                    # Check the link
+                    if os.path.islink(dst_path):
+                        real_path = os.readlink(dst_path)
+                        if real_path != src_path:
+                            # Re-create the link
+                            self.create_link(src_path, dst_path)
+                else:
+                    self.create_link(src_path, dst_path)
+            # Validate Git Link path
+            if not found or not os.path.exists(gil_path) or not os.listdir(gil_path):
+                raise Exception("%s:%d: Invalid Git Links path! Please check the %s git project in %s" % (filename, index, gil_name, gil_path))
+            index += 1
+        file.close()
+        return result
+
+    @staticmethod
+    def create_link(src_path, dst_path):
+        # Remove existing file, link or folder
+        if os.path.exists(dst_path):
+            if os.path.isdir(dst_path):
+                os.rmdir(dst_path)
+            else:
+                os.remove(dst_path)
+        # Create the link
+        os.symlink(src_path, dst_path, target_is_directory=True)
+        print("Update Git Link: %s -> %s" % (src_path, dst_path))
 
     def discover(self, path):
         current = os.path.abspath(path)
@@ -82,9 +175,9 @@ class GilContext(object):
         # Discover the current directory
         records = self.discover_dir(current)
 
-        # Try to discover a new Git Links path
+        # Insert Git Links record into the records dictionary
         for record in records:
-            self.discover_dir(record.path)
+            self.records[record] = record
 
     def discover_dir(self, path):
         # Try to find .gitlinks file
@@ -92,8 +185,7 @@ class GilContext(object):
         if not os.path.exists(filename):
             return []
 
-        if self.verbose:
-            print("Discover git links: %s" % filename)
+        print("Discover git links: %s" % filename)
 
         # Process .gitlinks file
         return self.process_links(path, filename)
@@ -117,10 +209,9 @@ class GilContext(object):
             gil_repo = tokens[2]
             gil_branch = tokens[3]
             record = GilRecord(gil_name, gil_path, gil_repo, gil_branch)
-            # Try to insert Git Links record into the records dictionary
+            # Try to find Git Links record in the records dictionary
             if record not in self.records:
                 result.append(record)
-                self.records[record] = record
             index += 1
         file.close()
         return result
@@ -137,33 +228,40 @@ class GilContext(object):
         return [strip_quotes(p).replace('\\"', '"').replace("\\'", "'") for p in re.findall(r'"(?:\\.|[^"])*"|\'(?:\\.|[^\'])*\'|[^\s]+', line)]
 
 
-def main():
-    parser = optparse.OptionParser(usage="usage: %prog [options] command arguments", version="%prog 1.0")
-    parser.add_option("-p", "--path", action="store", dest="path", default=".", help="path to process")
-    parser.add_option("-v", "--verbose", action="store_true", dest="verbose", default=False, help="verbose output")
-    (options, args) = parser.parse_args()
+def show_help():
+    print("usage: gil.py command arguments")
+    print("Supported commands:")
+    print("\thelp - show this help")
+    print("\tcontext - show Git Links context")
+    print("\tclone - clone git repositories")
+    print("\tlink - link git repositories")
+    sys.exit(1)
 
-    if len(args) == 0:
-        parser.print_help()
-        return
+
+def main():
+    # Show help message
+    if len(sys.argv) == 1:
+        show_help()
+
+    # Get the current working directory
+    path = os.getcwd()
 
     # Create Git Links context
-    context = GilContext(options.path, options.verbose)
+    context = GilContext(path)
 
     # Discover working path
-    context.discover(options.path)
+    context.discover(path)
 
-    if args[0] == "help":
-        print("Supported commands:")
-        print("\thelp - show this help")
-        print("\tcontext - show Git Links context")
-        print("\tclone - clone and link git repositories")
-    elif args[0] == "context":
+    if sys.argv[1] == "help":
+        show_help()
+    elif sys.argv[1] == "context":
         context.show()
-    elif args[0] == "clone":
-        context.clone(args[1:])
+    elif sys.argv[1] == "clone":
+        context.clone(sys.argv[2:])
+    elif sys.argv[1] == "link":
+        context.link(sys.argv[2:])
     else:
-        print("Unknown command: %s" % args[0])
+        print("Unknown command: %s" % sys.argv[1])
 
 
 if __name__ == "__main__":
