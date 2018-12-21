@@ -22,7 +22,7 @@ problem.
 * OSX
 * Windows 10
 * [git](https://git-scm.com)
-* [python3](https://www.python.org)
+* [python](https://www.python.org)
 
 # Setup
 
