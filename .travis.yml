@@ -69,7 +69,7 @@ before_install:
   # gil
   - git clone https://github.com/chronoxor/gil.git
   - cd sample
-  - ./gil/gil.sh update
+  - ../gil/gil.sh update
 
 # Build scripts
 script: 

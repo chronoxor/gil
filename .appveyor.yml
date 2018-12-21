@@ -58,7 +58,7 @@ install:
   - set PATH=C:\Python37;%PATH%
   - '%command% "git clone https://github.com/chronoxor/gil.git"'
   - cd sample
-  - '%command% ".\gil\gil.bat update"'
+  - '%command% "..\gil\gil.bat update"'
 
 # Build scripts
 build_script:
