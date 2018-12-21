@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-# Gil (git link) utility allows to describe and manage complex git repositories
+# Gil (git link) tool allows to describe and manage complex git repositories
 # dependency with cycles and cross references
 # https://github.com/chronoxor/gil
 # Author: Ivan Shynkarenka
