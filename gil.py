@@ -306,7 +306,7 @@ class GilContext(object):
         os.chdir(path)
         # Call git command
         print("Running: git %s in %s" % (command, path))
-        params = ["git", *args, command]
+        params = ["git", command, *args]
         process = subprocess.run(params)
         if process.returncode is None:
             raise Exception("Failed to run git %s in %s" % (command, path))
