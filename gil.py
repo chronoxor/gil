@@ -1,8 +1,9 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-# Git Links utility allows to create and manage git projects dependency
-# https://github.com/chronoxor/GitLinks
+# Gil (git link) utility allows to describe and manage complex git repositories
+# dependency with cycles and cross references
+# https://github.com/chronoxor/gil
 # Author: Ivan Shynkarenka
 # License: MIT License
 # Version: 1.0.0.0
@@ -56,7 +57,7 @@ class GilContext(object):
         print("Working path: %s" % self.path)
 
     def show(self):
-        print("Git Links context:")
+        print("Gil context:")
         for value in self.records.values():
             print(value)
 
@@ -71,7 +72,7 @@ class GilContext(object):
         # Discover the current directory
         records = self.discover_dir(current)
 
-        # Insert Git Links record into the records dictionary
+        # Insert discovered record into the records dictionary
         for record in records:
             self.records[record] = record
 
@@ -98,14 +99,14 @@ class GilContext(object):
             # Split line into tokens
             tokens = self.split(line)
             if len(tokens) != 4:
-                raise Exception("%s:%d: Invalid Git Links format! Must be in the form of 'name path repo branch'." % (filename, index))
-            # Create a new Git Links record
+                raise Exception("%s:%d: Invalid git link format! Must be in the form of 'name path repo branch'" % (filename, index))
+            # Create a new git link record
             gil_name = tokens[0]
             gil_path = os.path.abspath(os.path.join(path, tokens[1]))
             gil_repo = tokens[2]
             gil_branch = tokens[3]
             record = GilRecord(gil_name, gil_path, gil_repo, gil_branch)
-            # Try to find Git Links record in the records dictionary
+            # Try to find git link record in the records dictionary
             if record not in self.records:
                 result.append(record)
             index += 1
@@ -165,19 +166,19 @@ class GilContext(object):
             # Split line into tokens
             tokens = self.split(line)
             if len(tokens) != 4:
-                raise Exception("%s:%d: Invalid Git Links format! Must be in the form of 'name path repo branch'" % (filename, index))
-            # Create a new Git Links record
+                raise Exception("%s:%d: Invalid git link format! Must be in the form of 'name path repo branch'" % (filename, index))
+            # Create a new git link record
             gil_name = tokens[0]
             gil_path = os.path.abspath(os.path.join(path, tokens[1]))
             gil_repo = tokens[2]
             gil_branch = tokens[3]
             record = GilRecord(gil_name, gil_path, gil_repo, gil_branch)
-            # Try to find Git Links record in the records dictionary
+            # Try to find git link record in the records dictionary
             found = os.path.exists(gil_path) and os.listdir(gil_path)
             if record in self.records:
                 found = True
                 record = self.records[record]
-                # Try to check or create link to the existing Git Links record
+                # Try to check or create link to the existing git link record
                 src_path = record.path
                 dst_path = gil_path
                 # Add destination path to the result list
@@ -198,7 +199,7 @@ class GilContext(object):
                     self.git_hide(dst_path)
             # Validate Git Link path
             if not found or not os.path.exists(gil_path) or not os.listdir(gil_path):
-                raise Exception("%s:%d: Invalid Git Links path! Please check the %s git project in %s" % (filename, index, gil_name, gil_path))
+                raise Exception("%s:%d: Invalid git link path! Please check %s git repository in %s" % (filename, index, gil_name, gil_path))
             index += 1
         file.close()
         return result
@@ -241,8 +242,8 @@ class GilContext(object):
             # Split line into tokens
             tokens = self.split(line)
             if len(tokens) != 4:
-                raise Exception("%s:%d: Invalid Git Links format! Must be in the form of 'name path repo branch'" % (filename, index))
-            # Create a new Git Links record
+                raise Exception("%s:%d: Invalid git link format! Must be in the form of 'name path repo branch'" % (filename, index))
+            # Create a new git link record
             gil_name = tokens[0]
             gil_path = os.path.abspath(os.path.join(path, tokens[1]))
             gil_repo = tokens[2]
@@ -250,7 +251,7 @@ class GilContext(object):
             record = GilRecord(gil_name, gil_path, gil_repo, gil_branch)
             # Validate Git Link path
             if not os.path.exists(gil_path) or not os.listdir(gil_path):
-                raise Exception("%s:%d: Invalid Git Links path! Please check the %s git project in %s" % (filename, index, gil_name, gil_path))
+                raise Exception("%s:%d: Invalid git link path! Please check %s git repository in %s" % (filename, index, gil_name, gil_path))
             # Checkout to the required branch
             self.git_checkout(gil_path, gil_branch)
             # Call the command callback
@@ -345,10 +346,10 @@ class GilContext(object):
 
 
 def show_help():
-    print("usage: gil.py command arguments")
+    print("usage: gil command arguments")
     print("Supported commands:")
     print("\thelp - show this help")
-    print("\tcontext - show Git Links context")
+    print("\tcontext - show git links context")
     print("\tclone - clone git repositories")
     print("\tlink - link git repositories")
     print("\tupdate - update git repositories (clone & link)")
@@ -366,7 +367,7 @@ def main():
     # Get the current working directory
     path = os.getcwd()
 
-    # Create Git Links context
+    # Create git links context
     context = GilContext(path)
 
     # Discover working path

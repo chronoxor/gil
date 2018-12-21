@@ -1,7 +1,7 @@
-# GitLinks
+# Gil (git link)
 
-Git Links utility allows to describe and manage complex git projects
-dependency. It supports any projects hierarchy, cycles, cross links.
+Gil (git link) utility allows to describe and manage complex git repositories
+dependency with cycles and cross references.
 
-This utility provies a solution to git submodules recursive dependency
+This utility provies a solution to the recursive git submodules dependency
 problem.
