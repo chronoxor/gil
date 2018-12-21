@@ -280,8 +280,7 @@ class GilContext(object):
     def git_clone(path, repo, branch, args):
         # Call git clone command
         print("Running git clone %s branch \"%s\" into %s" % (repo, branch, path))
-        params = ["git", "clone", "-b", branch, repo, path]
-        params[2:2] = args
+        params = ["git", "clone", *args, "-b", branch, repo, path]
         process = subprocess.run(params)
         if process.returncode != 0:
             raise Exception("Failed to run git clone %s branch \"%s\" into %s" % (repo, branch, path))
@@ -325,8 +324,7 @@ class GilContext(object):
         os.chdir(path)
         # Call git command
         print("Running: git %s in %s" % (command, path))
-        params = ["git", command]
-        params[2:2] = args
+        params = ["git", *args, command]
         process = subprocess.run(params)
         if process.returncode is None:
             raise Exception("Failed to run git %s in %s" % (command, path))
