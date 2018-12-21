@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="42c8dacc-5624-48f4-9322-565b28e2b379" name="Default Changelist" comment="" />
+    <list default="true" id="42c8dacc-5624-48f4-9322-565b28e2b379" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/GitLinks.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gil.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gil.py" beforeDir="false" afterPath="$PROJECT_DIR$/gil.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -12,7 +17,17 @@
     <SUITE FILE_PATH="coverage/GitLinks$gil.coverage" NAME="gil Coverage Results" MODIFIED="1545323298961" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sample" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/gil.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="370">
+              <caret line="334" lean-forward="true" selection-start-line="334" selection-end-line="334" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -43,8 +58,18 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane" />
       <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="gil" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gil" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -68,7 +93,7 @@
   </component>
   <component name="RunManager">
     <configuration name="gil" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="GitLinks" />
+      <module name="gil" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -108,16 +133,18 @@
       <workItem from="1545257806296" duration="771000" />
       <workItem from="1545258838748" duration="12428000" />
       <workItem from="1545340283769" duration="4526000" />
+      <workItem from="1545355781359" duration="267000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17725000" />
+    <option name="totallyTimeSpent" value="17992000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="330" y="240" width="1982" height="964" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20967741" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21175858" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -164,8 +191,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/gil.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="321">
-          <caret line="216" lean-forward="true" selection-start-line="216" selection-end-line="216" />
+        <state relative-caret-position="370">
+          <caret line="334" lean-forward="true" selection-start-line="334" selection-end-line="334" />
         </state>
       </provider>
     </entry>
