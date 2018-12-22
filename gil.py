@@ -262,6 +262,9 @@ class GilContext(object):
 
     @staticmethod
     def create_link(src_path, dst_path):
+        # Create all directories at link path
+        parent = os.path.abspath(os.path.join(dst_path, os.pardir))
+        os.makedirs(parent, exist_ok=True)
         # Remove existing file, link or folder
         if os.path.exists(dst_path):
             if os.path.isdir(dst_path):

@@ -15,6 +15,7 @@ problem.
 # Contents
   * [Requirements](#requirements)
   * [Setup](#setup)
+  * [Sample](#sample)
   * [Usage](#usage)
 
 # Requirements
@@ -42,5 +43,43 @@ alias gil=~/gil/gil.sh
 # Add gil (git link) tool to the PATH environment variable
 PATH=%HOMEDRIVE%%HOMEPATH%\gil;%PATH%
 ```
+
+# Sample
+Consider we have the following git repository dependency.
+
+Where:
+* Blue rectangles are third-party components
+* Green rectangles are components that we develop
+* Arrows show dependency with branch name
+
+![gil sample](https://github.com/chronoxor/gil/raw/master/images/sample.png)
+
+In order to describe the sample model with git links we have to define root
+.gitlink file with a following content:
+```
+# Projects
+CppBenchmark CppBenchmark https://github.com/chronoxor/CppBenchmark.git master
+CppCommon CppCommon https://github.com/chronoxor/CppCommon.git master
+CppLogging CppLogging https://github.com/chronoxor/CppLogging.git master
+
+# Modules
+Catch2 modules/Catch2 https://github.com/catchorg/Catch2.git master
+cpp-optparse modules/cpp-optparse https://github.com/weisslj/cpp-optparse.git master
+fmt modules/fmt https://github.com/fmtlib/fmt.git master
+HdrHistogram modules/HdrHistogram https://github.com/HdrHistogram/HdrHistogram_c.git master
+zlib modules/zlib https://github.com/madler/zlib.git master
+
+# Scripts
+build scripts/build https://github.com/chronoxor/CppBuildScripts.git master
+cmake scripts/cmake https://github.com/chronoxor/CppCMakeScripts.git master
+```
+
+Each line describe git link in the following format:
+1. Unique name of the repository
+2. Relative path of the repository (started from the path of .gitlink file)
+3. Git repository which will be used in 'git clone' command
+4. Repository branch to checkout
+
+Empty line or line started with '#' are not parsed (treated as comment).
 
 # Usage
