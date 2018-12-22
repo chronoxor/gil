@@ -47,16 +47,16 @@ PATH=%HOMEDRIVE%%HOMEPATH%\gil;%PATH%
 # Sample
 Consider we have the following git repository dependency.
 
+![gil sample](https://github.com/chronoxor/gil/raw/master/images/sample.png)
+
 Where:
 * Blue rectangles are third-party components
 * Green rectangles are components that we develop
 * Arrows show dependency with branch name
 
-![gil sample](https://github.com/chronoxor/gil/raw/master/images/sample.png)
-
 In order to describe the sample model with git links we have to define root
 .gitlink file with a following content:
-```
+```shell
 # Projects
 CppBenchmark CppBenchmark https://github.com/chronoxor/CppBenchmark.git master
 CppCommon CppCommon https://github.com/chronoxor/CppCommon.git master
