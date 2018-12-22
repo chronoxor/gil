@@ -208,7 +208,7 @@ Finally you can build sample projects with provided build scripts:
 
 # Usage
 Gil (git link) tool supports the following commands:
-```shell
+```
 usage: gil command arguments
 Supported commands:
         help - show this help
@@ -221,26 +221,10 @@ Supported commands:
         commit - commit git repositories
 ```
 
-* `gil context` - command will show the current git link context of the
-  current directory. For exmample the context of the CppLogging repository
-  is the following:
-```shell
-Gil context:
-CppBenchmark Z:\projects\Contributions\gil\sample\CppBenchmark https://github.com/chronoxor/CppBenchmark.git master
-CppCommon Z:\projects\Contributions\gil\sample\CppCommon https://github.com/chronoxor/CppCommon.git master
-CppLogging Z:\projects\Contributions\gil\sample\CppLogging https://github.com/chronoxor/CppLogging.git master
-Catch2 Z:\projects\Contributions\gil\sample\modules\Catch2 https://github.com/catchorg/Catch2.git master
-cpp-optparse Z:\projects\Contributions\gil\sample\modules\cpp-optparse https://github.com/weisslj/cpp-optparse.git master
-fmt Z:\projects\Contributions\gil\sample\modules\fmt https://github.com/fmtlib/fmt.git master
-HdrHistogram Z:\projects\Contributions\gil\sample\modules\HdrHistogram https://github.com/HdrHistogram/HdrHistogram_c.git master
-zlib Z:\projects\Contributions\gil\sample\modules\zlib https://github.com/madler/zlib.git master
-build Z:\projects\Contributions\gil\sample\scripts\build https://github.com/chronoxor/CppBuildScripts.git master
-cmake Z:\projects\Contributions\gil\sample\scripts\cmake https://github.com/chronoxor/CppCMakeScripts.git master
-```
-
-* `gil clone [args]` - clone all repositories that are missed in the current context
-* `gil link` - link all repositories that are missed in the current context
-* `gil update` - clone and link in a single operation
-* `gil pull [args]` - pull all repositories in the current directory
-* `gil push [args]` - push all repositories in the current directory
-* `gil commit [args]` - commit all repositories in the current directory
+* `gil context` - command will show the current git link context of the current directory;
+* `gil clone [args]` - clone all repositories that are missed in the current context;
+* `gil link` - link all repositories that are missed in the current context;
+* `gil update` - clone and link in a single operation;
+* `gil pull [args]` - pull all repositories in the current directory;
+* `gil push [args]` - push all repositories in the current directory;
+* `gil commit [args]` - commit all repositories in the current directory;
