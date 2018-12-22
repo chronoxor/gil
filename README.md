@@ -9,8 +9,7 @@
 Gil (git link) tool allows to describe and manage complex git repositories
 dependency with cycles and cross references.
 
-This tool provides a solution to the git recursive submodules dependency
-problem.
+This tool provides a solution to the [git recursive submodules dependency problem](https://github.com/chronoxor/gil#recursive-submodules-problem).
 
 # Contents
   * [Requirements](#requirements)
@@ -18,8 +17,8 @@ problem.
   * [Sample](#sample)
   * [Usage](#usage)
   * [Motivation: submodules vs git links](#motivation-submodules-vs-git-links)
-    * [Recursive submodules problem](#recursive-submodules-problem)
     * [Submodules management](#submodules-management)
+    * [Recursive submodules problem](#recursive-submodules-problem)
 
 # Requirements
 * Linux
