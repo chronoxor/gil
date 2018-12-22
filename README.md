@@ -330,16 +330,15 @@ following:
 ```
 
 Only 10 of 41 repositories are unique. Other duplicates each other multiple
-times. Moreover nested repositories included recursively! CppLogging project
-has the third level of nesting (`CppLogging -> CppCommon -> CppBenchmark`).
+times. Moreover some nested repositories included recursively! CppLogging
+project has the third level of nesting (`CppLogging -> CppCommon -> CppBenchmark`).
 
 Each new level heavily increases the rate of duplication. As the result all
 submodule management operations becomes slow and requires multiple executions
 of synchronize script to pass changes from top level to the bottom. The count
-of synchronize script executions in the worst case equals to recursive levels
-count.
+of synchronizations in the worst case equals to recursive levels count.
 
-All this issues are solved by gil (git link) tool which allows to link all
+All this issues are solved with gil (git link) tool which allows to link all
 required repositories together avoiding duplication. The tool also provides
-operations to manage changes in all repositories with a simple easy to use
-commands such as commit, pull, push.
+operations to manage changes in all repositories with a [simple easy to use
+commands](https://github.com/chronoxor/gil#usage).
