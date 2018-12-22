@@ -208,6 +208,10 @@ Finally you can build sample projects with provided build scripts:
 * `~/gil/sample/CppCommon/build`
 * `~/gil/sample/CppLogging/build`
 
+Additionally each module can be cloned and successfully build without root
+repository. In this case local .gitlinks file will be used to resolve all
+dependencies!
+
 # Usage
 Gil (git link) tool supports the following commands:
 ```
@@ -282,42 +286,60 @@ git rm -f modules/zlib
 Git submodules representation of the described sample repository is the
 following:
 ```shell
+~/gil/sample/CppBenchmark
 ~/gil/sample/CppBenchmark/build
 ~/gil/sample/CppBenchmark/cmake
 ~/gil/sample/CppBenchmark/modules/Catch2
 ~/gil/sample/CppBenchmark/modules/cpp-optparse
 ~/gil/sample/CppBenchmark/modules/HdrHistogram
 ~/gil/sample/CppBenchmark/modules/zlib
-~/gil/sample/CppCommon/build
-~/gil/sample/CppCommon/cmake
-~/gil/sample/CppCommon/modules/Catch2
-~/gil/sample/CppCommon/modules/CppBenchmark
-~/gil/sample/CppCommon/modules/CppBenchmark/build
-~/gil/sample/CppCommon/modules/CppBenchmark/cmake
-~/gil/sample/CppCommon/modules/CppBenchmark/modules/Catch2
-~/gil/sample/CppCommon/modules/CppBenchmark/modules/cpp-optparse
-~/gil/sample/CppCommon/modules/CppBenchmark/modules/HdrHistogram
-~/gil/sample/CppCommon/modules/CppBenchmark/modules/zlib
+~/gil/sample/CppCommon
+~/gil/sample/CppCommon/build - DUPLICATE!
+~/gil/sample/CppCommon/cmake - DUPLICATE!
+~/gil/sample/CppCommon/modules/Catch2 - DUPLICATE!
+~/gil/sample/CppCommon/modules/CppBenchmark - DUPLICATE!
+~/gil/sample/CppCommon/modules/CppBenchmark/build - DUPLICATE!
+~/gil/sample/CppCommon/modules/CppBenchmark/cmake - DUPLICATE!
+~/gil/sample/CppCommon/modules/CppBenchmark/modules/Catch2 - DUPLICATE!
+~/gil/sample/CppCommon/modules/CppBenchmark/modules/cpp-optparse - DUPLICATE!
+~/gil/sample/CppCommon/modules/CppBenchmark/modules/HdrHistogram - DUPLICATE!
+~/gil/sample/CppCommon/modules/CppBenchmark/modules/zlib - DUPLICATE!
 ~/gil/sample/CppCommon/modules/fmt
-~/gil/sample/CppLogging/build
-~/gil/sample/CppLogging/cmake
-~/gil/sample/CppLogging/modules/Catch2
-~/gil/sample/CppLogging/modules/cpp-optparse
-~/gil/sample/CppLogging/modules/CppBenchmark/build
-~/gil/sample/CppLogging/modules/CppBenchmark/cmake
-~/gil/sample/CppLogging/modules/CppBenchmark/modules/Catch2
-~/gil/sample/CppLogging/modules/CppBenchmark/modules/cpp-optparse
-~/gil/sample/CppLogging/modules/CppBenchmark/modules/HdrHistogram
-~/gil/sample/CppLogging/modules/CppBenchmark/modules/zlib
-~/gil/sample/CppLogging/modules/CppCommon/build
-~/gil/sample/CppLogging/modules/CppCommon/cmake
-~/gil/sample/CppLogging/modules/CppCommon/modules/Catch2
-~/gil/sample/CppLogging/modules/CppCommon/modules/CppBenchmark
-~/gil/sample/CppLogging/modules/CppCommon/modules/CppBenchmark/build
-~/gil/sample/CppLogging/modules/CppCommon/modules/CppBenchmark/cmake
-~/gil/sample/CppLogging/modules/CppCommon/modules/CppBenchmark/modules/Catch2
-~/gil/sample/CppLogging/modules/CppCommon/modules/CppBenchmark/modules/cpp-optparse
-~/gil/sample/CppLogging/modules/CppCommon/modules/CppBenchmark/modules/HdrHistogram
-~/gil/sample/CppLogging/modules/CppCommon/modules/CppBenchmark/modules/zlib
-~/gil/sample/CppLogging/modules/zlib
+~/gil/sample/CppLogging
+~/gil/sample/CppLogging/build - DUPLICATE!
+~/gil/sample/CppLogging/cmake - DUPLICATE!
+~/gil/sample/CppLogging/modules/Catch2 - DUPLICATE!
+~/gil/sample/CppLogging/modules/cpp-optparse - DUPLICATE!
+~/gil/sample/CppLogging/modules/CppBenchmark/build - DUPLICATE!
+~/gil/sample/CppLogging/modules/CppBenchmark/cmake - DUPLICATE!
+~/gil/sample/CppLogging/modules/CppBenchmark/modules/Catch2 - DUPLICATE!
+~/gil/sample/CppLogging/modules/CppBenchmark/modules/cpp-optparse - DUPLICATE!
+~/gil/sample/CppLogging/modules/CppBenchmark/modules/HdrHistogram - DUPLICATE!
+~/gil/sample/CppLogging/modules/CppBenchmark/modules/zlib - DUPLICATE!
+~/gil/sample/CppLogging/modules/CppCommon/build - DUPLICATE!
+~/gil/sample/CppLogging/modules/CppCommon/cmake - DUPLICATE!
+~/gil/sample/CppLogging/modules/CppCommon/modules/Catch2 - DUPLICATE!
+~/gil/sample/CppLogging/modules/CppCommon/modules/CppBenchmark - DUPLICATE!
+~/gil/sample/CppLogging/modules/CppCommon/modules/CppBenchmark/build - DUPLICATE!
+~/gil/sample/CppLogging/modules/CppCommon/modules/CppBenchmark/cmake - DUPLICATE!
+~/gil/sample/CppLogging/modules/CppCommon/modules/CppBenchmark/modules/Catch2 - DUPLICATE!
+~/gil/sample/CppLogging/modules/CppCommon/modules/CppBenchmark/modules/cpp-optparse - DUPLICATE!
+~/gil/sample/CppLogging/modules/CppCommon/modules/CppBenchmark/modules/HdrHistogram - DUPLICATE!
+~/gil/sample/CppLogging/modules/CppCommon/modules/CppBenchmark/modules/zlib - DUPLICATE!
+~/gil/sample/CppLogging/modules/zlib - DUPLICATE!
 ```
+
+Only 10 of 41 repositories are unique. Other duplicates each other multiple
+times. Moreover nested repositories included recursively! CppLogging project
+has the third level of nesting (`CppLogging -> CppCommon -> CppBenchmark`).
+
+Each new level heavily increases the rate of duplication. As the result all
+submodule management operations becomes slow and requires multiple executions
+of synchronize script to pass changes from top level to the bottom. The count
+of synchronize script executions in the worst case equals to recursive levels
+count.
+
+All this issues are solved by gil (git link) tool which allows to link all
+required repositories together avoiding duplication. The tool also provides
+operations to manage changes in all repositories with a simple easy to use
+commands such as commit, pull, push.
