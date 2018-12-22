@@ -1,4 +1,4 @@
-# Gil (git link)
+# Gil (git links) tool
 
 [![Linux build status](https://img.shields.io/travis/chronoxor/gil/master.svg?label=Linux)](https://travis-ci.org/chronoxor/gil)
 [![OSX build status](https://img.shields.io/travis/chronoxor/gil/master.svg?label=OSX)](https://travis-ci.org/chronoxor/gil)
@@ -6,7 +6,7 @@
 [![MinGW build status](https://img.shields.io/appveyor/ci/chronoxor/gil/master.svg?label=MinGW)](https://ci.appveyor.com/project/chronoxor/gil)
 [![Windows build status](https://img.shields.io/appveyor/ci/chronoxor/gil/master.svg?label=Windows)](https://ci.appveyor.com/project/chronoxor/gil)
 
-Gil (git link) tool allows to describe and manage complex git repositories
+Gil (git links) tool allows to describe and manage complex git repositories
 dependency with cycles and cross references.
 
 This tool provides a solution to the [git recursive submodules dependency problem](https://github.com/chronoxor/gil#recursive-submodules-problem).
@@ -36,13 +36,13 @@ git clone https://github.com/chronoxor/git.git
 
 ### Linux, OSX
 ```shell
-# Add gil (git link) tool alias in .bashrc
+# Add gil (git links) tool alias in .bashrc
 alias gil=~/gil/gil.sh
 ```
 
 ### Windows
 ```shell
-# Add gil (git link) tool to the PATH environment variable
+# Add gil (git links) tool to the PATH environment variable
 PATH=%HOMEDRIVE%%HOMEPATH%\gil;%PATH%
 ```
 
@@ -133,7 +133,7 @@ cmake cmake https://github.com/chronoxor/CppCMakeScripts.git master
 ### Update the repository
 Finally you have to update your root sample repository:
 ```shell
-# Clone and link all gil (git link) dependencies from .gitlinks file
+# Clone and link all git links dependencies from .gitlinks file
 gil clone
 gil link
 
@@ -148,26 +148,26 @@ Working path: ~/gil/sample
 ...
 Updating git links: ~/gil/sample/.gitlinks
 Updating git links: ~/gil/sample/CppBenchmark/.gitlinks
-Update Git Link: ~/gil/sample/modules/Catch2 -> ~/gil/sample/CppBenchmark/modules/Catch2
-Update Git Link: ~/gil/sample/modules/cpp-optparse -> ~/gil/sample/CppBenchmark/modules/cpp-optparse
-Update Git Link: ~/gil/sample/modules/HdrHistogram -> ~/gil/sample/CppBenchmark/modules/HdrHistogram
-Update Git Link: ~/gil/sample/modules/zlib -> ~/gil/sample/CppBenchmark/modules/zlib
-Update Git Link: ~/gil/sample/scripts/build -> ~/gil/sample/CppBenchmark/build
-Update Git Link: ~/gil/sample/scripts/cmake -> ~/gil/sample/CppBenchmark/cmake
+Update git link: ~/gil/sample/modules/Catch2 -> ~/gil/sample/CppBenchmark/modules/Catch2
+Update git link: ~/gil/sample/modules/cpp-optparse -> ~/gil/sample/CppBenchmark/modules/cpp-optparse
+Update git link: ~/gil/sample/modules/HdrHistogram -> ~/gil/sample/CppBenchmark/modules/HdrHistogram
+Update git link: ~/gil/sample/modules/zlib -> ~/gil/sample/CppBenchmark/modules/zlib
+Update git link: ~/gil/sample/scripts/build -> ~/gil/sample/CppBenchmark/build
+Update git link: ~/gil/sample/scripts/cmake -> ~/gil/sample/CppBenchmark/cmake
 Updating git links: ~/gil/sample/CppCommon/.gitlinks
-Update Git Link: ~/gil/sample/modules/Catch2 -> ~/gil/sample/CppCommon/modules/Catch2
-Update Git Link: ~/gil/sample/CppBenchmark -> ~/gil/sample/CppCommon/modules/CppBenchmark
-Update Git Link: ~/gil/sample/modules/fmt -> ~/gil/sample/CppCommon/modules/fmt
-Update Git Link: ~/gil/sample/scripts/build -> ~/gil/sample/CppCommon/build
-Update Git Link: ~/gil/sample/scripts/cmake -> ~/gil/sample/CppCommon/cmake
+Update git link: ~/gil/sample/modules/Catch2 -> ~/gil/sample/CppCommon/modules/Catch2
+Update git link: ~/gil/sample/CppBenchmark -> ~/gil/sample/CppCommon/modules/CppBenchmark
+Update git link: ~/gil/sample/modules/fmt -> ~/gil/sample/CppCommon/modules/fmt
+Update git link: ~/gil/sample/scripts/build -> ~/gil/sample/CppCommon/build
+Update git link: ~/gil/sample/scripts/cmake -> ~/gil/sample/CppCommon/cmake
 Updating git links: ~/gil/sample/CppLogging/.gitlinks
-Update Git Link: ~/gil/sample/modules/Catch2 -> ~/gil/sample/CppLogging/modules/Catch2
-Update Git Link: ~/gil/sample/modules/cpp-optparse -> ~/gil/sample/CppLogging/modules/cpp-optparse
-Update Git Link: ~/gil/sample/CppBenchmark -> ~/gil/sample/CppLogging/modules/CppBenchmark
-Update Git Link: ~/gil/sample/CppCommon -> ~/gil/sample/CppLogging/modules/CppCommon
-Update Git Link: ~/gil/sample/modules/zlib -> ~/gil/sample/CppLogging/modules/zlib
-Update Git Link: ~/gil/sample/scripts/build -> ~/gil/sample/CppLogging/build
-Update Git Link: ~/gil/sample/scripts/cmake -> ~/gil/sample/CppLogging/cmake
+Update git link: ~/gil/sample/modules/Catch2 -> ~/gil/sample/CppLogging/modules/Catch2
+Update git link: ~/gil/sample/modules/cpp-optparse -> ~/gil/sample/CppLogging/modules/cpp-optparse
+Update git link: ~/gil/sample/CppBenchmark -> ~/gil/sample/CppLogging/modules/CppBenchmark
+Update git link: ~/gil/sample/CppCommon -> ~/gil/sample/CppLogging/modules/CppCommon
+Update git link: ~/gil/sample/modules/zlib -> ~/gil/sample/CppLogging/modules/zlib
+Update git link: ~/gil/sample/scripts/build -> ~/gil/sample/CppLogging/build
+Update git link: ~/gil/sample/scripts/cmake -> ~/gil/sample/CppLogging/cmake
 ```
 
 All repositories will be checkout to required branches.
@@ -201,7 +201,7 @@ gil push
 
 ### Build
 Please investigate and follow links in the sample repository in order to
-understand the logic how gil (git link) tool manages dependencies.
+understand the logic how gil (git links) tool manages dependencies.
 
 Finally you can build sample projects with provided build scripts:
 * `~/gil/sample/CppBenchmark/build`
@@ -213,7 +213,7 @@ repository. In this case local .gitlinks file will be used to resolve all
 dependencies!
 
 # Usage
-Gil (git link) tool supports the following commands:
+Gil (git links) tool supports the following commands:
 ```
 usage: gil command arguments
 Supported commands:
@@ -338,7 +338,7 @@ submodule management operations becomes slow and requires multiple executions
 of synchronize script to pass changes from top level to the bottom. The count
 of synchronizations in the worst case equals to recursive levels count.
 
-All this issues are solved with gil (git link) tool which allows to link all
+All this issues are solved with gil (git links) tool which allows to link all
 required repositories together avoiding duplication. The tool also provides
 operations to manage changes in all repositories with a [simple easy to use
 commands](https://github.com/chronoxor/gil#usage).

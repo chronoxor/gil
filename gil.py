@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-# Gil (git link) tool allows to describe and manage complex git repositories
+# Gil (git links) tool allows to describe and manage complex git repositories
 # dependency with cycles and cross references
 # https://github.com/chronoxor/gil
 # Author: Ivan Shynkarenka
@@ -195,7 +195,7 @@ class GilContext(object):
                             self.create_link(src_path, dst_path)
                 else:
                     self.create_link(src_path, dst_path)
-            # Validate Git Link path
+            # Validate git link path
             if not found or not os.path.exists(gil_path) or not os.listdir(gil_path):
                 raise Exception("%s:%d: Invalid git link path! Please check %s git repository in %s" % (filename, index, gil_name, gil_path))
             index += 1
@@ -247,7 +247,7 @@ class GilContext(object):
             gil_repo = tokens[2]
             gil_branch = tokens[3]
             record = GilRecord(gil_name, gil_path, gil_repo, gil_branch)
-            # Validate Git Link path
+            # Validate git link path
             if not os.path.exists(gil_path) or not os.listdir(gil_path):
                 raise Exception("%s:%d: Invalid git link path! Please check %s git repository in %s" % (filename, index, gil_name, gil_path))
             # Checkout to the required branch
@@ -273,7 +273,7 @@ class GilContext(object):
                 os.remove(dst_path)
         # Create the link
         os.symlink(src_path, dst_path, target_is_directory=True)
-        print("Update Git Link: %s -> %s" % (src_path, dst_path))
+        print("Update git link: %s -> %s" % (src_path, dst_path))
 
     # Git methods
 
