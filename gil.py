@@ -335,12 +335,12 @@ def show_help():
     print("Supported commands:")
     print("\thelp - show this help")
     print("\tcontext - show git links context")
-    print("\tclone - clone git repositories")
+    print("\tclone [args] - clone git repositories")
     print("\tlink - link git repositories")
     print("\tupdate - update git repositories (clone & link)")
-    print("\tpull - pull git repositories")
-    print("\tpush - push git repositories")
-    print("\tcommit - commit git repositories")
+    print("\tpull [args] - pull git repositories")
+    print("\tpush [args] - push git repositories")
+    print("\tcommit [args] - commit git repositories")
     sys.exit(1)
 
 

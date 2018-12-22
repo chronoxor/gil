@@ -78,10 +78,10 @@ cmake scripts/cmake https://github.com/chronoxor/CppCMakeScripts.git master
 Each line describe git link in the following format:
 1. Unique name of the repository
 2. Relative path of the repository (started from the path of .gitlinks file)
-3. Git repository which will be used in 'git clone' command
+3. Git repository which will be used in `git clone` command
 4. Repository branch to checkout
 
-Empty line or line started with '#' are not parsed (treated as comment).
+Empty line or line started with `#` are not parsed (treated as comment).
 
 ## CppBenchmark .gitlinks file
 CppBenchmark .gitlinks file should be committed into the CppBenchmark project
@@ -170,7 +170,7 @@ Update Git Link: ~/gil/sample/scripts/cmake -> ~/gil/sample/CppLogging/cmake
 
 All repositories will be checkout to required branches.
 
-If content of any .gitlinks changes it is required to run 'gil update' command
+If content of any .gitlinks changes it is required to run `gil update` command
 to re-update git links - new repositories will be cloned and linked properly!
 
 ## Commit, push, pull
@@ -220,3 +220,27 @@ Supported commands:
         push - push git repositories
         commit - commit git repositories
 ```
+
+* `gil context` - command will show the current git link context of the
+  current directory. For exmample the context of the CppLogging repository
+  is the following:
+```shell
+Gil context:
+CppBenchmark Z:\projects\Contributions\gil\sample\CppBenchmark https://github.com/chronoxor/CppBenchmark.git master
+CppCommon Z:\projects\Contributions\gil\sample\CppCommon https://github.com/chronoxor/CppCommon.git master
+CppLogging Z:\projects\Contributions\gil\sample\CppLogging https://github.com/chronoxor/CppLogging.git master
+Catch2 Z:\projects\Contributions\gil\sample\modules\Catch2 https://github.com/catchorg/Catch2.git master
+cpp-optparse Z:\projects\Contributions\gil\sample\modules\cpp-optparse https://github.com/weisslj/cpp-optparse.git master
+fmt Z:\projects\Contributions\gil\sample\modules\fmt https://github.com/fmtlib/fmt.git master
+HdrHistogram Z:\projects\Contributions\gil\sample\modules\HdrHistogram https://github.com/HdrHistogram/HdrHistogram_c.git master
+zlib Z:\projects\Contributions\gil\sample\modules\zlib https://github.com/madler/zlib.git master
+build Z:\projects\Contributions\gil\sample\scripts\build https://github.com/chronoxor/CppBuildScripts.git master
+cmake Z:\projects\Contributions\gil\sample\scripts\cmake https://github.com/chronoxor/CppCMakeScripts.git master
+```
+
+* `gil clone [args]` - clone all repositories that are missed in the current context
+* `gil link` - link all repositories that are missed in the current context
+* `gil update` - clone and link in a single operation
+* `gil pull [args]` - pull all repositories in the current directory
+* `gil push [args]` - push all repositories in the current directory
+* `gil commit [args]` - commit all repositories in the current directory
