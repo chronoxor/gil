@@ -202,9 +202,9 @@ Please investigate and follow links in the sample repository in order to
 understand the logic how gil (git link) tool manages dependencies.
 
 Finally you can build sample projects with provided build scripts:
-* ~/gil/sample/CppBenchmark/build
-* ~/gil/sample/CppCommon/build
-* ~/gil/sample/CppLogging/build
+* `~/gil/sample/CppBenchmark/build`
+* `~/gil/sample/CppCommon/build`
+* `~/gil/sample/CppLogging/build`
 
 # Usage
 Gil (git link) tool supports the following commands:
