@@ -9,7 +9,7 @@
 Gil (git link) tool allows to describe and manage complex git repositories
 dependency with cycles and cross references.
 
-This tool provides a solution to the recursive git submodules dependency
+This tool provides a solution to the git recursive submodules dependency
 problem.
 
 # Contents
@@ -17,6 +17,9 @@ problem.
   * [Setup](#setup)
   * [Sample](#sample)
   * [Usage](#usage)
+  * [Motivation: submodules vs git links](#motivation-submodules-vs-git-links)
+    * [Recursive submodules problem](#recursive-submodules-problem)
+    * [Submodules management](#submodules-management)
 
 # Requirements
 * Linux
@@ -54,7 +57,7 @@ Where:
 * Green rectangles are components that we develop
 * Arrows show dependency with branch name
 
-## Root .gitlinks file
+### Root .gitlinks file
 In order to describe the sample model with git links we have to define root
 .gitlinks file in your sample repository with a following content:
 ```shell
@@ -83,7 +86,7 @@ Each line describe git link in the following format:
 
 Empty line or line started with `#` are not parsed (treated as comment).
 
-## CppBenchmark .gitlinks file
+### CppBenchmark .gitlinks file
 CppBenchmark .gitlinks file should be committed into the CppBenchmark project
 and have the following content:
 ```shell
@@ -98,7 +101,7 @@ build build https://github.com/chronoxor/CppBuildScripts.git master
 cmake cmake https://github.com/chronoxor/CppCMakeScripts.git master
 ```
 
-## CppCommon .gitlinks file
+### CppCommon .gitlinks file
 CppCommon .gitlinks file should be committed into the CppCommon project and
 have the following content:
 ```shell
@@ -112,7 +115,7 @@ build build https://github.com/chronoxor/CppBuildScripts.git master
 cmake cmake https://github.com/chronoxor/CppCMakeScripts.git master
 ```
 
-## CppLogging .gitlinks file
+### CppLogging .gitlinks file
 CppLogging .gitlinks file should be committed into the CppLogging project and
 have the following content:
 ```shell
@@ -128,7 +131,7 @@ build build https://github.com/chronoxor/CppBuildScripts.git master
 cmake cmake https://github.com/chronoxor/CppCMakeScripts.git master
 ```
 
-## Update the repository
+### Update the repository
 Finally you have to update your root sample repository:
 ```shell
 # Clone and link all gil (git link) dependencies from .gitlinks file
@@ -173,7 +176,7 @@ All repositories will be checkout to required branches.
 If content of any .gitlinks changes it is required to run `gil update` command
 to re-update git links - new repositories will be cloned and linked properly!
 
-## Commit, push, pull
+### Commit, push, pull
 You can work and change any files in your repositories and perform all git
 operations for any repository to commit and contribute your changes.
 
@@ -197,7 +200,7 @@ gil pull
 gil push
 ```
 
-## Build
+### Build
 Please investigate and follow links in the sample repository in order to
 understand the logic how gil (git link) tool manages dependencies.
 
@@ -228,3 +231,94 @@ Supported commands:
 * `gil pull [args]` - pull all repositories in the current directory;
 * `gil push [args]` - push all repositories in the current directory;
 * `gil commit [args]` - commit all repositories in the current directory;
+
+# Motivation: submodules vs git links
+Git submodules allow to get the same idea of repositories dependency, but with
+a serious limitation - git submodules degrade to tree-like recursive structure
+with repositories duplication.
+
+## Submodules management
+Git submodules provides several operations to manage repositories dependency.
+
+### Add submodule dependency
+```shell
+# Add git submodule of 'master' branch into the relative directory 'modules/zlib'
+git submodule add -b master https://github.com/madler/zlib.git modules/zlib
+```
+
+### Initialize submodules
+```shell
+# Update all submodules in the current repository
+git submodule update --init --recursive --remote
+```
+
+### Refresh submodules from remote repositories
+```shell
+git pull
+git submodule update --init --recursive --remote
+git pull --recurse-submodules
+git submodule foreach "(git checkout master; git pull)"
+```
+
+### Synchronize submodules with remote repositories
+```shell
+git pull
+git submodule update --init --recursive --remote
+git pull --recurse-submodules
+git submodule foreach "(git checkout master; git pull)"
+git add --all
+git commit -m "Submodule Sync"
+git push
+```
+
+### Remove submodule dependency
+```shell
+# Remove git submodule from the relative directory 'modules/zlib'
+git submodule deinit -f -- modules/zlib
+rm -rf .git/modules/modules/zlib
+git rm -f modules/zlib
+```
+
+## Recursive submodules problem
+Git submodules representation of the described sample repository is the
+following:
+```shell
+~/gil/sample/CppBenchmark/build
+~/gil/sample/CppBenchmark/cmake
+~/gil/sample/CppBenchmark/modules/Catch2
+~/gil/sample/CppBenchmark/modules/cpp-optparse
+~/gil/sample/CppBenchmark/modules/HdrHistogram
+~/gil/sample/CppBenchmark/modules/zlib
+~/gil/sample/CppCommon/build
+~/gil/sample/CppCommon/cmake
+~/gil/sample/CppCommon/modules/Catch2
+~/gil/sample/CppCommon/modules/CppBenchmark
+~/gil/sample/CppCommon/modules/CppBenchmark/build
+~/gil/sample/CppCommon/modules/CppBenchmark/cmake
+~/gil/sample/CppCommon/modules/CppBenchmark/modules/Catch2
+~/gil/sample/CppCommon/modules/CppBenchmark/modules/cpp-optparse
+~/gil/sample/CppCommon/modules/CppBenchmark/modules/HdrHistogram
+~/gil/sample/CppCommon/modules/CppBenchmark/modules/zlib
+~/gil/sample/CppCommon/modules/fmt
+~/gil/sample/CppLogging/build
+~/gil/sample/CppLogging/cmake
+~/gil/sample/CppLogging/modules/Catch2
+~/gil/sample/CppLogging/modules/cpp-optparse
+~/gil/sample/CppLogging/modules/CppBenchmark/build
+~/gil/sample/CppLogging/modules/CppBenchmark/cmake
+~/gil/sample/CppLogging/modules/CppBenchmark/modules/Catch2
+~/gil/sample/CppLogging/modules/CppBenchmark/modules/cpp-optparse
+~/gil/sample/CppLogging/modules/CppBenchmark/modules/HdrHistogram
+~/gil/sample/CppLogging/modules/CppBenchmark/modules/zlib
+~/gil/sample/CppLogging/modules/CppCommon/build
+~/gil/sample/CppLogging/modules/CppCommon/cmake
+~/gil/sample/CppLogging/modules/CppCommon/modules/Catch2
+~/gil/sample/CppLogging/modules/CppCommon/modules/CppBenchmark
+~/gil/sample/CppLogging/modules/CppCommon/modules/CppBenchmark/build
+~/gil/sample/CppLogging/modules/CppCommon/modules/CppBenchmark/cmake
+~/gil/sample/CppLogging/modules/CppCommon/modules/CppBenchmark/modules/Catch2
+~/gil/sample/CppLogging/modules/CppCommon/modules/CppBenchmark/modules/cpp-optparse
+~/gil/sample/CppLogging/modules/CppCommon/modules/CppBenchmark/modules/HdrHistogram
+~/gil/sample/CppLogging/modules/CppCommon/modules/CppBenchmark/modules/zlib
+~/gil/sample/CppLogging/modules/zlib
+```
