@@ -9,7 +9,7 @@
 Gil (git link) tool allows to describe and manage complex git repositories
 dependency with cycles and cross references.
 
-This tool provies a solution to the recursive git submodules dependency
+This tool provides a solution to the recursive git submodules dependency
 problem.
 
 # Contents
@@ -184,14 +184,18 @@ gil commit -a -m "Some big update"
 ```
 
 This command will visit the current and all child repositories and perform
-the corresponding 'git commit' command with provided arguments.
+the corresponding `git commit` command with provided arguments.
 
 Please note that gil command visit only child repositories that are described
 in .gitlinks file no parent dependencies will be processed. For this reason
 if you want to commit, pull or push all repositories the corresponding command
 should be run in the root directory where root .gitlinks is placed.
 
-Pull, push commands works in a similar way.
+Pull, push commands works in a similar way:
+```shell
+gil pull
+gil push
+```
 
 ## Build
 Please investigate and follow links in the sample repository in order to
@@ -203,3 +207,16 @@ Finally you can build sample projects with provided build scripts:
 * ~/gil/sample/CppLogging/build
 
 # Usage
+Gil (git link) tool supports the following commands:
+```shell
+usage: gil command arguments
+Supported commands:
+        help - show this help
+        context - show git links context
+        clone - clone git repositories
+        link - link git repositories
+        update - update git repositories (clone & link)
+        pull - pull git repositories
+        push - push git repositories
+        commit - commit git repositories
+```
