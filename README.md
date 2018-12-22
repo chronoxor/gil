@@ -54,8 +54,9 @@ Where:
 * Green rectangles are components that we develop
 * Arrows show dependency with branch name
 
+## Root .gitlinks file
 In order to describe the sample model with git links we have to define root
-.gitlink file with a following content:
+.gitlinks file in your sample repository with a following content:
 ```shell
 # Projects
 CppBenchmark CppBenchmark https://github.com/chronoxor/CppBenchmark.git master
@@ -76,10 +77,129 @@ cmake scripts/cmake https://github.com/chronoxor/CppCMakeScripts.git master
 
 Each line describe git link in the following format:
 1. Unique name of the repository
-2. Relative path of the repository (started from the path of .gitlink file)
+2. Relative path of the repository (started from the path of .gitlinks file)
 3. Git repository which will be used in 'git clone' command
 4. Repository branch to checkout
 
 Empty line or line started with '#' are not parsed (treated as comment).
+
+## CppBenchmark .gitlinks file
+CppBenchmark .gitlinks file should be committed into the CppBenchmark project
+and have the following content:
+```shell
+# Modules
+Catch2 modules/Catch2 https://github.com/catchorg/Catch2.git master
+cpp-optparse modules/cpp-optparse https://github.com/weisslj/cpp-optparse.git master
+HdrHistogram modules/HdrHistogram https://github.com/HdrHistogram/HdrHistogram_c.git master
+zlib modules/zlib https://github.com/madler/zlib.git master
+
+# Scripts
+build build https://github.com/chronoxor/CppBuildScripts.git master
+cmake cmake https://github.com/chronoxor/CppCMakeScripts.git master
+```
+
+## CppCommon .gitlinks file
+CppCommon .gitlinks file should be committed into the CppCommon project and
+have the following content:
+```shell
+# Modules
+Catch2 modules/Catch2 https://github.com/catchorg/Catch2.git master
+CppBenchmark modules/CppBenchmark https://github.com/chronoxor/CppBenchmark.git master
+fmt modules/fmt https://github.com/fmtlib/fmt.git master
+
+# Scripts
+build build https://github.com/chronoxor/CppBuildScripts.git master
+cmake cmake https://github.com/chronoxor/CppCMakeScripts.git master
+```
+
+## CppLogging .gitlinks file
+CppLogging .gitlinks file should be committed into the CppLogging project and
+have the following content:
+```shell
+# Modules
+Catch2 modules/Catch2 https://github.com/catchorg/Catch2.git master
+cpp-optparse modules/cpp-optparse https://github.com/weisslj/cpp-optparse.git master
+CppBenchmark modules/CppBenchmark https://github.com/chronoxor/CppBenchmark.git master
+CppCommon modules/CppCommon https://github.com/chronoxor/CppCommon.git master
+zlib modules/zlib https://github.com/madler/zlib.git master
+
+# Scripts
+build build https://github.com/chronoxor/CppBuildScripts.git master
+cmake cmake https://github.com/chronoxor/CppCMakeScripts.git master
+```
+
+## Update the repository
+Finally you have to update your root sample repository:
+```shell
+# Clone and link all gil (git link) dependencies from .gitlinks file
+gil clone
+gil link
+
+# The same result with a single command
+gil update
+```
+
+As the result you'll clone all required projects and link them to each other
+in a proper way:
+```shell
+Working path: ~/gil/sample
+...
+Updating git links: ~/gil/sample/.gitlinks
+Updating git links: ~/gil/sample/CppBenchmark/.gitlinks
+Update Git Link: ~/gil/sample/modules/Catch2 -> ~/gil/sample/CppBenchmark/modules/Catch2
+Update Git Link: ~/gil/sample/modules/cpp-optparse -> ~/gil/sample/CppBenchmark/modules/cpp-optparse
+Update Git Link: ~/gil/sample/modules/HdrHistogram -> ~/gil/sample/CppBenchmark/modules/HdrHistogram
+Update Git Link: ~/gil/sample/modules/zlib -> ~/gil/sample/CppBenchmark/modules/zlib
+Update Git Link: ~/gil/sample/scripts/build -> ~/gil/sample/CppBenchmark/build
+Update Git Link: ~/gil/sample/scripts/cmake -> ~/gil/sample/CppBenchmark/cmake
+Updating git links: ~/gil/sample/CppCommon/.gitlinks
+Update Git Link: ~/gil/sample/modules/Catch2 -> ~/gil/sample/CppCommon/modules/Catch2
+Update Git Link: ~/gil/sample/CppBenchmark -> ~/gil/sample/CppCommon/modules/CppBenchmark
+Update Git Link: ~/gil/sample/modules/fmt -> ~/gil/sample/CppCommon/modules/fmt
+Update Git Link: ~/gil/sample/scripts/build -> ~/gil/sample/CppCommon/build
+Update Git Link: ~/gil/sample/scripts/cmake -> ~/gil/sample/CppCommon/cmake
+Updating git links: ~/gil/sample/CppLogging/.gitlinks
+Update Git Link: ~/gil/sample/modules/Catch2 -> ~/gil/sample/CppLogging/modules/Catch2
+Update Git Link: ~/gil/sample/modules/cpp-optparse -> ~/gil/sample/CppLogging/modules/cpp-optparse
+Update Git Link: ~/gil/sample/CppBenchmark -> ~/gil/sample/CppLogging/modules/CppBenchmark
+Update Git Link: ~/gil/sample/CppCommon -> ~/gil/sample/CppLogging/modules/CppCommon
+Update Git Link: ~/gil/sample/modules/zlib -> ~/gil/sample/CppLogging/modules/zlib
+Update Git Link: ~/gil/sample/scripts/build -> ~/gil/sample/CppLogging/build
+Update Git Link: ~/gil/sample/scripts/cmake -> ~/gil/sample/CppLogging/cmake
+```
+
+All repositories will be checkout to required branches.
+
+If content of any .gitlinks changes it is required to run 'gil update' command
+to re-update git links - new repositories will be cloned and linked properly!
+
+## Commit, push, pull
+You can work and change any files in your repositories and perform all git
+operations for any repository to commit and contribute your changes.
+
+If you want to commit all changes in some repository with all changes in
+child linked repositories you can do it with a single command:
+```shell
+gil commit -a -m "Some big update"
+```
+
+This command will visit the current and all child repositories and perform
+the corresponding 'git commit' command with provided arguments.
+
+Please note that gil command visit only child repositories that are described
+in .gitlinks file no parent dependencies will be processed. For this reason
+if you want to commit, pull or push all repositories the corresponding command
+should be run in the root directory where root .gitlinks is placed.
+
+Pull, push commands works in a similar way.
+
+## Build
+Please investigate and follow links in the sample repository in order to
+understand the logic how gil (git link) tool manages dependencies.
+
+Finally you can build sample projects with provided build scripts:
+* ~/gil/sample/CppBenchmark/build
+* ~/gil/sample/CppCommon/build
+* ~/gil/sample/CppLogging/build
 
 # Usage
