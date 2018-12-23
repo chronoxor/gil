@@ -3,11 +3,24 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/sample/CppBenchmark" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/sample/CppBenchmark/build" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/sample/CppBenchmark/cmake" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/sample/CppBenchmark/modules/Catch2" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/sample/CppBenchmark/modules/HdrHistogram" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/sample/CppBenchmark/modules/cpp-optparse" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/sample/CppBenchmark/modules/zlib" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/sample/CppCommon" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/sample/CppCommon/build" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/sample/CppCommon/cmake" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/sample/CppCommon/modules/Catch2" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/sample/CppCommon/modules/CppBenchmark" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/sample/CppCommon/modules/fmt" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/sample/CppLogging" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/sample/CppLogging/build" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/sample/CppLogging/cmake" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/sample/CppLogging/modules/Catch2" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/sample/CppLogging/modules/CppBenchmark" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/sample/CppLogging/modules/CppCommon" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/sample/CppLogging/modules/cpp-optparse" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/sample/CppLogging/modules/zlib" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/sample/CppTemplate" vcs="Git" />
