@@ -52,9 +52,9 @@ Consider we have the following git repository dependency graph:
 ![gil sample](https://github.com/chronoxor/gil/raw/master/images/sample.png)
 
 Where:
-* Blue rectangles are third-party components
-* Green rectangles are components that we develop
-* Arrows show dependency with branch name
+* Blue nodes are third-party components
+* Green nodes are components that we develop
+* Edges show components dependency with branch name
 
 ### Root .gitlinks file
 In order to describe the sample model with git links we have to define root
