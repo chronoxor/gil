@@ -7,7 +7,7 @@
 [![Windows build status](https://img.shields.io/appveyor/ci/chronoxor/gil/master.svg?label=Windows)](https://ci.appveyor.com/project/chronoxor/gil)
 
 Gil (git links) tool allows to describe and manage complex git repositories
-dependency with cycles and cross references.
+dependencies with cycles and cross references.
 
 This tool provides a solution to the [git recursive submodules dependency problem](https://github.com/chronoxor/gil#recursive-submodules-problem).
 
