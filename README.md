@@ -54,7 +54,7 @@ Consider we have the following git repository dependency graph:
 Where:
 * Blue nodes are third-party components
 * Green nodes are components that we develop
-* Edges show components dependency with branch name
+* Edges show components dependency with a branch
 
 ### Root .gitlinks file
 In order to describe the sample model with git links we have to define root
