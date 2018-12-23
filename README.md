@@ -47,7 +47,7 @@ PATH=%HOMEDRIVE%%HOMEPATH%\gil;%PATH%
 ```
 
 # Sample
-Consider we have the following git repository dependency.
+Consider we have the following git repository dependency graph:
 
 ![gil sample](https://github.com/chronoxor/gil/raw/master/images/sample.png)
 
