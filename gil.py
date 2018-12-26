@@ -89,28 +89,27 @@ class GilContext(object):
 
     def process_links(self, path, filename):
         result = []
-        file = open(filename, 'r')
-        index = 0
-        for line in file:
-            # Skip empty lines and comments
-            line = line.strip()
-            if line == '' or line.startswith('#'):
-                continue
-            # Split line into tokens
-            tokens = self.split(line)
-            if len(tokens) != 4:
-                raise Exception("%s:%d: Invalid git link format! Must be in the form of 'name path repo branch'" % (filename, index))
-            # Create a new git link record
-            gil_name = tokens[0]
-            gil_path = os.path.abspath(os.path.join(path, tokens[1]))
-            gil_repo = tokens[2]
-            gil_branch = tokens[3]
-            record = GilRecord(gil_name, gil_path, gil_repo, gil_branch)
-            # Try to find git link record in the records dictionary
-            if record not in self.records:
-                result.append(record)
-            index += 1
-        file.close()
+        with open(filename, 'r') as file:
+            index = 0
+            for line in file:
+                # Skip empty lines and comments
+                line = line.strip()
+                if line == '' or line.startswith('#'):
+                    continue
+                # Split line into tokens
+                tokens = self.split(line)
+                if len(tokens) != 4:
+                    raise Exception("%s:%d: Invalid git link format! Must be in the form of 'name path repo branch'" % (filename, index))
+                # Create a new git link record
+                gil_name = tokens[0]
+                gil_path = os.path.abspath(os.path.join(path, tokens[1]))
+                gil_repo = tokens[2]
+                gil_branch = tokens[3]
+                record = GilRecord(gil_name, gil_path, gil_repo, gil_branch)
+                # Try to find git link record in the records dictionary
+                if record not in self.records:
+                    result.append(record)
+                index += 1
         return result
 
     def clone(self, args=None):
@@ -156,50 +155,49 @@ class GilContext(object):
 
     def update_links(self, path, filename):
         result = []
-        file = open(filename, 'r')
-        index = 0
-        for line in file:
-            # Skip empty lines and comments
-            line = line.strip()
-            if line == '' or line.startswith('#'):
-                continue
-            # Split line into tokens
-            tokens = self.split(line)
-            if len(tokens) != 4:
-                raise Exception("%s:%d: Invalid git link format! Must be in the form of 'name path repo branch'" % (filename, index))
-            # Create a new git link record
-            gil_name = tokens[0]
-            gil_path = os.path.abspath(os.path.join(path, tokens[1]))
-            gil_repo = tokens[2]
-            gil_branch = tokens[3]
-            record = GilRecord(gil_name, gil_path, gil_repo, gil_branch)
-            # Try to find git link record in the records dictionary
-            found = os.path.exists(gil_path) and os.listdir(gil_path)
-            if record in self.records:
-                found = True
-                record = self.records[record]
-                # Try to check or create link to the existing git link record
-                src_path = record.path
-                dst_path = gil_path
-                # Add destination path to the result list
-                result.append(dst_path)
-                if src_path == dst_path:
-                    # Do nothing here...
-                    pass
-                elif os.path.exists(dst_path) and os.listdir(dst_path):
-                    # Check the link
-                    if os.path.islink(dst_path):
-                        real_path = os.readlink(dst_path)
-                        if real_path != src_path:
-                            # Re-create the link
-                            self.create_link(src_path, dst_path)
-                else:
-                    self.create_link(src_path, dst_path)
-            # Validate git link path
-            if not found or not os.path.exists(gil_path) or not os.listdir(gil_path):
-                raise Exception("%s:%d: Invalid git link path! Please check %s git repository in %s" % (filename, index, gil_name, gil_path))
-            index += 1
-        file.close()
+        with open(filename, 'r') as file:
+            index = 0
+            for line in file:
+                # Skip empty lines and comments
+                line = line.strip()
+                if line == '' or line.startswith('#'):
+                    continue
+                # Split line into tokens
+                tokens = self.split(line)
+                if len(tokens) != 4:
+                    raise Exception("%s:%d: Invalid git link format! Must be in the form of 'name path repo branch'" % (filename, index))
+                # Create a new git link record
+                gil_name = tokens[0]
+                gil_path = os.path.abspath(os.path.join(path, tokens[1]))
+                gil_repo = tokens[2]
+                gil_branch = tokens[3]
+                record = GilRecord(gil_name, gil_path, gil_repo, gil_branch)
+                # Try to find git link record in the records dictionary
+                found = os.path.exists(gil_path) and os.listdir(gil_path)
+                if record in self.records:
+                    found = True
+                    record = self.records[record]
+                    # Try to check or create link to the existing git link record
+                    src_path = record.path
+                    dst_path = gil_path
+                    # Add destination path to the result list
+                    result.append(dst_path)
+                    if src_path == dst_path:
+                        # Do nothing here...
+                        pass
+                    elif os.path.exists(dst_path) and os.listdir(dst_path):
+                        # Check the link
+                        if os.path.islink(dst_path):
+                            real_path = os.readlink(dst_path)
+                            if real_path != src_path:
+                                # Re-create the link
+                                self.create_link(src_path, dst_path)
+                    else:
+                        self.create_link(src_path, dst_path)
+                # Validate git link path
+                if not found or not os.path.exists(gil_path) or not os.listdir(gil_path):
+                    raise Exception("%s:%d: Invalid git link path! Please check %s git repository in %s" % (filename, index, gil_name, gil_path))
+                index += 1
         return result
 
     def command(self, name, args=None):
@@ -230,32 +228,31 @@ class GilContext(object):
 
     def command_links(self, callback, path, filename):
         result = []
-        file = open(filename, 'r')
-        index = 0
-        for line in file:
-            # Skip empty lines and comments
-            line = line.strip()
-            if line == '' or line.startswith('#'):
-                continue
-            # Split line into tokens
-            tokens = self.split(line)
-            if len(tokens) != 4:
-                raise Exception("%s:%d: Invalid git link format! Must be in the form of 'name path repo branch'" % (filename, index))
-            # Create a new git link record
-            gil_name = tokens[0]
-            gil_path = os.path.abspath(os.path.join(path, tokens[1]))
-            gil_repo = tokens[2]
-            gil_branch = tokens[3]
-            record = GilRecord(gil_name, gil_path, gil_repo, gil_branch)
-            # Validate git link path
-            if not os.path.exists(gil_path) or not os.listdir(gil_path):
-                raise Exception("%s:%d: Invalid git link path! Please check %s git repository in %s" % (filename, index, gil_name, gil_path))
-            # Checkout to the required branch
-            self.git_checkout(gil_path, gil_branch)
-            # Call the command callback
-            callback(record.path)
-            index += 1
-        file.close()
+        with open(filename, 'r') as file:
+            index = 0
+            for line in file:
+                # Skip empty lines and comments
+                line = line.strip()
+                if line == '' or line.startswith('#'):
+                    continue
+                # Split line into tokens
+                tokens = self.split(line)
+                if len(tokens) != 4:
+                    raise Exception("%s:%d: Invalid git link format! Must be in the form of 'name path repo branch'" % (filename, index))
+                # Create a new git link record
+                gil_name = tokens[0]
+                gil_path = os.path.abspath(os.path.join(path, tokens[1]))
+                gil_repo = tokens[2]
+                gil_branch = tokens[3]
+                record = GilRecord(gil_name, gil_path, gil_repo, gil_branch)
+                # Validate git link path
+                if not os.path.exists(gil_path) or not os.listdir(gil_path):
+                    raise Exception("%s:%d: Invalid git link path! Please check %s git repository in %s" % (filename, index, gil_name, gil_path))
+                # Checkout to the required branch
+                self.git_checkout(gil_path, gil_branch)
+                # Call the command callback
+                callback(record.path)
+                index += 1
         return result
 
     # Filesystem methods
