@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="42c8dacc-5624-48f4-9322-565b28e2b379" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gil.py" beforeDir="false" afterPath="$PROJECT_DIR$/gil.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -12,7 +11,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/gil$gil.coverage" NAME="gil Coverage Results" MODIFIED="1545955303242" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sample" />
+    <SUITE FILE_PATH="coverage/gil$gil.coverage" NAME="gil Coverage Results" MODIFIED="1545956307886" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sample" />
     <SUITE FILE_PATH="coverage/GitLinks$gil.coverage" NAME="gil Coverage Results" MODIFIED="1545323298961" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sample" />
   </component>
   <component name="FileEditorManager">
@@ -52,6 +51,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -63,7 +63,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -136,16 +135,17 @@
       <workItem from="1545866904626" duration="157000" />
       <workItem from="1545954002843" duration="18000" />
       <workItem from="1545954827483" duration="486000" />
+      <workItem from="1545956059425" duration="253000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20088000" />
+    <option name="totallyTimeSpent" value="20341000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="330" y="240" width="1982" height="964" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2284079" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23100936" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -192,8 +192,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/gil.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="385" lean-forward="true" selection-start-line="385" selection-end-line="385" />
+        <state relative-caret-position="443">
+          <caret line="350" lean-forward="true" selection-start-line="350" selection-end-line="350" />
           <folding>
             <element signature="e#277#286#0" expanded="true" />
           </folding>

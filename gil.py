@@ -1,17 +1,20 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# Gil (git links) tool allows to describe and manage complex git repositories
-# dependency with cycles and cross references
-# https://github.com/chronoxor/gil
-# Author: Ivan Shynkarenka
-# License: MIT License
-# Version: 1.0.0.0
+"""
+Gil (git links) tool allows to describe and manage complex git repositories
+dependency with cycles and cross references
+"""
 
 import os
 import re
 import subprocess
 import sys
+
+__author__ = 'Ivan Shynkarenka'
+__license__ = 'MIT License'
+__url__ = 'https://github.com/chronoxor/gil'
+__version__ = '1.0.0.0'
 
 
 class GilRecord(object):
@@ -343,7 +346,7 @@ def show_help():
 
 
 def show_version():
-    print("1.0.0.0")
+    print(__version__)
     sys.exit(1)
 
 
