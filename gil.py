@@ -331,6 +331,7 @@ def show_help():
     print("usage: gil command arguments")
     print("Supported commands:")
     print("\thelp - show this help")
+    print("\tversion - show version")
     print("\tcontext - show git links context")
     print("\tclone [args] - clone git repositories")
     print("\tlink - link git repositories")
@@ -341,10 +342,20 @@ def show_help():
     sys.exit(1)
 
 
+def show_version():
+    print("1.0.0.0")
+    sys.exit(1)
+
+
 def main():
     # Show help message
     if len(sys.argv) <= 1:
         show_help()
+
+    if sys.argv[1] == "help":
+        show_help()
+    elif sys.argv[1] == "version":
+        show_version()
 
     # Get the current working directory
     path = os.getcwd()
@@ -355,9 +366,7 @@ def main():
     # Discover working path
     context.discover(path)
 
-    if sys.argv[1] == "help":
-        show_help()
-    elif sys.argv[1] == "context":
+    if sys.argv[1] == "context":
         context.show()
     elif sys.argv[1] == "clone":
         context.clone(sys.argv[2:])
