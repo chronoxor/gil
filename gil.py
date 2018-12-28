@@ -382,7 +382,9 @@ def main():
         context.command(sys.argv[1], sys.argv[2:])
     else:
         print("Unknown command: %s" % sys.argv[1])
+        return -1
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
