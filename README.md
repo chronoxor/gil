@@ -30,10 +30,8 @@ This tool provides a solution to the [git recursive submodules dependency proble
 # Setup
 
 ```shell
-pip3 install gin
+pip install gil
 ```
-
-The script requires Python 3
 
 # Sample
 Consider we have the following git repository dependency graph:
