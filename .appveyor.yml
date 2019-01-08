@@ -50,7 +50,8 @@ install:
   - '%command% "cmake --version"'
   # gil
   - set PATH=C:\Python37;C:\Python37\Scripts;%PATH%
-  - pip3 install gil
+  - pip install --upgrade pip
+  - pip install gil
   - cd sample
   - gil update
 

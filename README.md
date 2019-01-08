@@ -29,22 +29,11 @@ This tool provides a solution to the [git recursive submodules dependency proble
 
 # Setup
 
-### Clone repository
 ```shell
-git clone https://github.com/chronoxor/git.git
+pip3 install gin
 ```
 
-### Linux, OSX
-```shell
-# Add gil (git links) tool alias in .bashrc
-alias gil=~/gil/gil.sh
-```
-
-### Windows
-```shell
-# Add gil (git links) tool to the PATH environment variable
-PATH=%HOMEDRIVE%%HOMEPATH%\gil;%PATH%
-```
+The script requires Python 3
 
 # Sample
 Consider we have the following git repository dependency graph:

@@ -69,7 +69,8 @@ before_install:
   - git config --global user.email "travis@travis-ci.org"
   - git config --global push.default simple
   # gil
-  - pip3 install gil
+  - pip install --upgrade pip
+  - pip install gil
   - cd sample
   - gil update
 
