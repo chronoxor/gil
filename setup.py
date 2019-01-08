@@ -12,7 +12,7 @@ if __name__ == "__main__":
         description="Gil (git links) tool",
         long_description="Gil (git links) tool allows to describe and manage complex git repositories dependencies with cycles and cross references",
         license="MIT License",
-        scripts=["gil.py", "gil.bat", "gil.sh"],
+        scripts=["gil.py", "gil.bat", "gil"],
         platforms="Linux, OSX, Windows",
         classifiers=[
             "Operating System :: MacOS :: MacOS X",
