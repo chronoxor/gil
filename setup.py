@@ -5,18 +5,17 @@ import distutils.core
 if __name__ == "__main__":
     distutils.core.setup(
         name="gil",
-        version="1.0.0.0",
+        version="1.0.0.2",
         author="Ivan Shynkarenka",
         author_email="chronoxor@gmail.com",
         url="https://github.com/chronoxor/gil",
         description="Gil (git links) tool",
         long_description="Gil (git links) tool allows to describe and manage complex git repositories dependencies with cycles and cross references",
         license="MIT License",
-        scripts=["gil"],
+        scripts=["gil.py", "gil.bat", "gil.sh"],
         platforms="Linux, OSX, Windows",
         classifiers=[
             "Operating System :: MacOS :: MacOS X",
-            "Operating System :: Microsoft :: Windows",
             "Operating System :: POSIX",
             "Programming Language :: Python :: 3"
         ]
