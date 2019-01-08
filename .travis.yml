@@ -67,9 +67,9 @@ before_install:
   - git config --global user.email "travis@travis-ci.org"
   - git config --global push.default simple
   # gil
-  - git clone https://github.com/chronoxor/gil.git
+  - pip3 install gil
   - cd sample
-  - ../gil/gil.sh update
+  - gil update
 
 # Build scripts
 script: 

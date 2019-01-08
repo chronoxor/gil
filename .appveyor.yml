@@ -50,9 +50,9 @@ install:
   - '%command% "cmake --version"'
   # gil
   - set PATH=C:\Python37;%PATH%
-  - git clone https://github.com/chronoxor/gil.git"
+  - pip3 install gil
   - cd sample
-  - ..\gil\gil.bat update
+  - gil update
 
 # Build scripts
 build_script:
