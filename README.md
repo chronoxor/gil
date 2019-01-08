@@ -30,7 +30,7 @@ This tool provides a solution to the [git recursive submodules dependency proble
 # Setup
 
 ```shell
-pip install gil
+pip3 install gil
 ```
 
 # Sample
