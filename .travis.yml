@@ -19,6 +19,7 @@ matrix:
             - graphviz
             - binutils-dev
             - python3-pip
+            - python3-setuptools
             - uuid-dev
     - os: linux
       compiler: clang
@@ -36,6 +37,7 @@ matrix:
             - graphviz
             - binutils-dev
             - python3-pip
+            - python3-setuptools
             - uuid-dev
     - os: osx
       compiler: clang
