@@ -15,7 +15,7 @@ __author__ = 'Ivan Shynkarenka'
 __email__= 'chronoxor@gmail.com'
 __license__ = 'MIT License'
 __url__ = 'https://github.com/chronoxor/gil'
-__version__ = '1.1.0.0'
+__version__ = '1.2.0.0'
 
 
 class GilRecord(object):
@@ -379,7 +379,7 @@ def main():
     elif sys.argv[1] == "update":
         context.clone()
         context.link()
-    elif (sys.argv[1] == "pull") or (sys.argv[1] == "push") or (sys.argv[1] == "commit"):
+    elif (sys.argv[1] == "pull") or (sys.argv[1] == "push") or (sys.argv[1] == "commit") or (sys.argv[1] == "status"):
         context.command(sys.argv[1], sys.argv[2:])
     else:
         print("Unknown command: %s" % sys.argv[1])
