@@ -205,13 +205,15 @@ Gil (git links) tool supports the following commands:
 usage: gil command arguments
 Supported commands:
         help - show this help
+        version - show version
         context - show git links context
-        clone - clone git repositories
+        clone [args] - clone git repositories
         link - link git repositories
         update - update git repositories (clone & link)
-        pull - pull git repositories
-        push - push git repositories
-        commit - commit git repositories
+        pull [args] - pull git repositories
+        push [args] - push git repositories
+        commit [args] - commit git repositories
+        status [args] - show status of git repositories
 ```
 
 * `gil context` - command will show the current git link context of the current directory;
@@ -221,6 +223,7 @@ Supported commands:
 * `gil pull [args]` - pull all repositories in the current directory;
 * `gil push [args]` - push all repositories in the current directory;
 * `gil commit [args]` - commit all repositories in the current directory;
+* `gil status [args]` - show status of all repositories in the current directory;
 
 # Motivation: submodules vs git links
 Git submodules allow to get the same idea of repositories dependency, but with

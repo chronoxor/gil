@@ -343,6 +343,7 @@ def show_help():
     print("\tpull [args] - pull git repositories")
     print("\tpush [args] - push git repositories")
     print("\tcommit [args] - commit git repositories")
+    print("\tstatus [args] - show status of git repositories")
     sys.exit(1)
 
 
