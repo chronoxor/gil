@@ -5,7 +5,7 @@ import distutils.core
 if __name__ == "__main__":
     distutils.core.setup(
         name="gil",
-        version="1.2.0.0",
+        version="1.3.0.0",
         author="Ivan Shynkarenka",
         author_email="chronoxor@gmail.com",
         url="https://github.com/chronoxor/gil",
