@@ -6,13 +6,14 @@ Gil (git links) tool allows to describe and manage complex git repositories
 dependency with cycles and cross references
 """
 
+import collections
 import os
 import re
 import subprocess
 import sys
 
 __author__ = 'Ivan Shynkarenka'
-__email__= 'chronoxor@gmail.com'
+__email__ = 'chronoxor@gmail.com'
 __license__ = 'MIT License'
 __url__ = 'https://github.com/chronoxor/gil'
 __version__ = '1.3.0.0'
@@ -56,7 +57,7 @@ class GilRecord(object):
 
 class GilContext(object):
     def __init__(self, path):
-        self.records = {}
+        self.records = collections.OrderedDict()
         self.path = os.path.abspath(path)
         print("Working path: %s" % self.path)
 
@@ -74,11 +75,22 @@ class GilContext(object):
             self.discover(parent)
 
         # Discover the current directory
+        self.discover_current(current)
+
+    def discover_current(self, path):
+        current = os.path.abspath(path)
+
+        # Discover the current directory
         records = self.discover_dir(current)
 
         # Insert discovered record into the records dictionary
         for record in records:
-            self.records[record] = record
+            if record not in self.records:
+                self.records[record] = record
+
+        # Discover all child directories
+        for record in records:
+            self.discover_current(record.path)
 
     def discover_dir(self, path):
         # Try to find .gitlinks file
@@ -118,18 +130,20 @@ class GilContext(object):
 
     def clone(self, args=None):
         args = [] if args is None else args
-        stack = list(self.records.values())
-        stack.sort()
+        stack = list(self.records.keys())
         while len(stack) > 0:
-            value = stack.pop()
+            value = stack.pop(0)
             path = value.path
             if not os.path.exists(path) or not os.listdir(path):
                 # Perform git clone operation
                 self.git_clone(value.path, value.repo, value.branch, args)
                 # Discover new repository and append new records to the stack
                 if os.path.exists(path) and os.listdir(path):
-                    stack.extend(self.discover_dir(path))
-                    stack.sort()
+                    inner = collections.OrderedDict.fromkeys(self.discover_dir(path))
+                    for key in inner:
+                        if key not in self.records:
+                            self.records[key] = key
+                            stack.append(key)
 
     def link(self, path=None):
         current = os.path.abspath(self.path if path is None else path)
@@ -145,6 +159,10 @@ class GilContext(object):
         # Link all child dirs
         for d in dirs:
             self.link_dir(d)
+
+        # Link all records dirs
+        for record in self.records:
+            self.link_dir(record.path)
 
     def link_dir(self, path):
         # Try to find .gitlinks file
