@@ -12,7 +12,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/gil$gil.coverage" NAME="gil Coverage Results" MODIFIED="1551830123522" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="Z:/projects/Finstek/Finstek-Lab" />
+    <SUITE FILE_PATH="coverage/gil$gil.coverage" NAME="gil Coverage Results" MODIFIED="1551831574758" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="Z:/projects/Finstek/Finstek-Lab" />
     <SUITE FILE_PATH="coverage/GitLinks$gil.coverage" NAME="gil Coverage Results" MODIFIED="1545323298961" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sample" />
   </component>
   <component name="FileEditorManager">
@@ -144,16 +144,18 @@
       <workItem from="1546472821986" duration="3000" />
       <workItem from="1551823738622" duration="6247000" />
       <workItem from="1551830008084" duration="128000" />
+      <workItem from="1551831112557" duration="403000" />
+      <workItem from="1551831533461" duration="112000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27054000" />
+    <option name="totallyTimeSpent" value="27569000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="330" y="240" width="1982" height="964" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2466181" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.251821" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -207,8 +209,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/gil.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="131">
-          <caret line="405" selection-start-line="405" selection-end-line="405" />
+        <state relative-caret-position="357">
+          <caret line="403" selection-start-line="403" selection-end-line="403" />
           <folding>
             <element signature="e#177#195#0" expanded="true" />
           </folding>

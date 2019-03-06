@@ -74,14 +74,14 @@ class GilContext(object):
         if parent != current:
             self.discover(parent)
 
-        # Discover the current directory
-        self.discover_current(current)
+        # Discover recursive the current directory
+        self.discover_recursive(current)
 
-    def discover_current(self, path):
+    def discover_recursive(self, path):
         current = os.path.abspath(path)
 
         # Discover the current directory
-        records = self.discover_dir(current)
+        records = self.discover_path(current)
 
         # Insert discovered record into the records dictionary
         for record in records:
@@ -90,9 +90,9 @@ class GilContext(object):
 
         # Discover all child directories
         for record in records:
-            self.discover_current(record.path)
+            self.discover_recursive(record.path)
 
-    def discover_dir(self, path):
+    def discover_path(self, path):
         # Try to find .gitlinks file
         filename = os.path.join(path, ".gitlinks")
         if not os.path.exists(filename):
@@ -139,7 +139,7 @@ class GilContext(object):
                 self.git_clone(value.path, value.repo, value.branch, args)
                 # Discover new repository and append new records to the stack
                 if os.path.exists(path) and os.listdir(path):
-                    inner = collections.OrderedDict.fromkeys(self.discover_dir(path))
+                    inner = collections.OrderedDict.fromkeys(self.discover_path(path))
                     for key in inner:
                         if key not in self.records:
                             self.records[key] = key
@@ -169,8 +169,6 @@ class GilContext(object):
         filename = os.path.join(path, ".gitlinks")
         if not os.path.exists(filename):
             return []
-
-        print("Updating git links: %s" % filename)
 
         # Process .gitlinks file
         return self.update_links(path, filename)
