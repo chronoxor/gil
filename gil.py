@@ -16,7 +16,7 @@ __author__ = 'Ivan Shynkarenka'
 __email__ = 'chronoxor@gmail.com'
 __license__ = 'MIT License'
 __url__ = 'https://github.com/chronoxor/gil'
-__version__ = '1.4.0.0'
+__version__ = '1.5.0.0'
 
 
 class GilRecord(object):
