@@ -16,7 +16,7 @@ __author__ = 'Ivan Shynkarenka'
 __email__ = 'chronoxor@gmail.com'
 __license__ = 'MIT License'
 __url__ = 'https://github.com/chronoxor/gil'
-__version__ = '1.6.0.0'
+__version__ = '1.7.0.0'
 
 
 class GilRecord(object):
@@ -25,6 +25,7 @@ class GilRecord(object):
         self.path = path
         self.repo = repo
         self.branch = branch
+        self.active = False
 
     def __eq__(self, other):
         if not isinstance(self, other.__class__):
@@ -69,13 +70,24 @@ class GilContext(object):
     def discover(self, path):
         current = os.path.abspath(path)
 
-        # Recursive discover the parent path
-        parent = os.path.abspath(os.path.join(current, os.pardir))
-        if parent != current:
-            self.discover(parent)
+        # Recursive discover the root path
+        root = current
+        parent = current
+        while True:
+            top = os.path.abspath(os.path.join(parent, os.pardir))
+            if top == parent:
+                break
+            parent = top
+            # Try to find .gitlinks file
+            filename = os.path.join(parent, ".gitlinks")
+            if os.path.exists(filename):
+                root = parent
+        self.discover_recursive(root)
 
-        # Discover recursive the current directory
-        self.discover_recursive(current)
+        # Mark active records
+        for record in self.records:
+            if record.path.startswith(current):
+                record.active = True
 
     def discover_recursive(self, path):
         current = os.path.abspath(path)
@@ -148,23 +160,35 @@ class GilContext(object):
     def link(self, path=None):
         current = os.path.abspath(self.path if path is None else path)
 
-        # Recursive discover the parent path
-        parent = os.path.abspath(os.path.join(current, os.pardir))
-        if parent != current:
-            self.link(parent)
+        # Recursive discover the root path
+        root = current
+        parent = current
+        while True:
+            top = os.path.abspath(os.path.join(parent, os.pardir))
+            if top == parent:
+                break
+            parent = top
+            # Try to find .gitlinks file
+            filename = os.path.join(parent, ".gitlinks")
+            if os.path.exists(filename):
+                root = parent
+        self.link_recursive(root)
+
+    def link_recursive(self, path):
+        current = os.path.abspath(path)
 
         # Link the current directory
-        dirs = self.link_dir(current)
+        dirs = self.link_path(current)
 
-        # Link all child dirs
+        # Link all child directories
         for d in dirs:
-            self.link_dir(d)
+            self.link_path(d)
 
-        # Link all records dirs
+        # Link all records directories
         for record in self.records:
-            self.link_dir(record.path)
+            self.link_path(record.path)
 
-    def link_dir(self, path):
+    def link_path(self, path):
         # Try to find .gitlinks file
         filename = os.path.join(path, ".gitlinks")
         if not os.path.exists(filename):
@@ -221,63 +245,15 @@ class GilContext(object):
         return result
 
     def command(self, name, args=None):
-        def git_callback(path):
-            self.git_command(path, name, args)
         args = [] if args is None else args
-        self.command_internal(git_callback)
 
-    def command_internal(self, callback, path=None):
-        current = os.path.abspath(self.path if path is None else path)
-
-        # Call the command for the current directory
-        self.command_dir(callback, current)
-
-        # Call the command for all records dirs
+        # Call the command for all active records
         for record in self.records:
-            self.command_dir(callback, record.path)
-
-    def command_dir(self, callback, path):
-        # Call the command callback
-        callback(path)
-
-        # Try to find .gitlinks file
-        filename = os.path.join(path, ".gitlinks")
-        if not os.path.exists(filename):
-            return []
-
-        print("Processing git links: %s" % filename)
-
-        # Process .gitlinks file
-        return self.command_links(callback, path, filename)
-
-    def command_links(self, callback, path, filename):
-        result = []
-        with open(filename, 'r') as file:
-            index = 0
-            for line in file:
-                # Skip empty lines and comments
-                line = line.strip()
-                if line == '' or line.startswith('#'):
-                    continue
-                # Split line into tokens
-                tokens = self.split(line)
-                if len(tokens) != 4:
-                    raise Exception("%s:%d: Invalid git link format! Must be in the form of 'name path repo branch'" % (filename, index))
-                # Create a new git link record
-                gil_name = tokens[0]
-                gil_path = os.path.abspath(os.path.join(path, tokens[1]))
-                gil_repo = tokens[2]
-                gil_branch = tokens[3]
-                record = GilRecord(gil_name, gil_path, gil_repo, gil_branch)
-                # Validate git link path
-                if not os.path.exists(gil_path) or not os.listdir(gil_path):
-                    raise Exception("%s:%d: Invalid git link path! Please check %s git repository in %s" % (filename, index, gil_name, gil_path))
+            if record.active:
                 # Checkout to the required branch
-                self.git_checkout(gil_path, gil_branch)
+                self.git_checkout(record.path, record.branch)
                 # Call the command callback
-                callback(record.path)
-                index += 1
-        return result
+                self.git_command(record.path, name, args)
 
     # Filesystem methods
 
