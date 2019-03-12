@@ -16,7 +16,7 @@ __author__ = 'Ivan Shynkarenka'
 __email__ = 'chronoxor@gmail.com'
 __license__ = 'MIT License'
 __url__ = 'https://github.com/chronoxor/gil'
-__version__ = '1.7.0.0'
+__version__ = '1.8.0.0'
 
 
 class GilRecord(object):
@@ -246,6 +246,10 @@ class GilContext(object):
 
     def command(self, name, args=None):
         args = [] if args is None else args
+
+        # Call the command for the current directory
+        current = os.path.abspath(self.path)
+        self.git_command(current, name, args)
 
         # Call the command for all active records
         for record in self.records:
