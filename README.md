@@ -69,6 +69,8 @@ Each line describe git link in the following format:
 2. Relative path of the repository (started from the path of .gitlinks file)
 3. Git repository which will be used in `git clone` command
 4. Repository branch to checkout
+5. (Optional) Relative path in the base repository
+6. (Optional) Relative path in the target repository
 
 Empty line or line started with `#` are not parsed (treated as comment).
 

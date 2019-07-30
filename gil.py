@@ -16,15 +16,16 @@ __author__ = 'Ivan Shynkarenka'
 __email__ = 'chronoxor@gmail.com'
 __license__ = 'MIT License'
 __url__ = 'https://github.com/chronoxor/gil'
-__version__ = '1.9.0.0'
+__version__ = '1.10.0.0'
 
 
 class GilRecord(object):
-    def __init__(self, name, path, repo, branch):
+    def __init__(self, name, path, repo, branch, links):
         self.name = name
         self.path = path
         self.repo = repo
         self.branch = branch
+        self.links = links
         self.active = False
 
     def __eq__(self, other):
@@ -126,14 +127,17 @@ class GilContext(object):
                     continue
                 # Split line into tokens
                 tokens = self.split(line)
-                if len(tokens) != 4:
-                    raise Exception("%s:%d: Invalid git link format! Must be in the form of 'name path repo branch'" % (filename, index))
+                if (len(tokens) < 4) or ((len(tokens) % 2) != 0):
+                    raise Exception("%s:%d: Invalid git link format! Must be in the form of 'name path repo branch [base_path target_path]'" % (filename, index))
                 # Create a new git link record
                 gil_name = tokens[0]
                 gil_path = os.path.abspath(os.path.join(path, tokens[1]))
                 gil_repo = tokens[2]
                 gil_branch = tokens[3]
-                record = GilRecord(gil_name, gil_path, gil_repo, gil_branch)
+                gil_links = dict()
+                for i in range(4, len(tokens), 2):
+                    gil_links[tokens[i]] = tokens[i + 1]
+                record = GilRecord(gil_name, gil_path, gil_repo, gil_branch, gil_links)
                 # Try to find git link record in the records dictionary
                 if record not in self.records:
                     result.append(record)
@@ -208,14 +212,17 @@ class GilContext(object):
                     continue
                 # Split line into tokens
                 tokens = self.split(line)
-                if len(tokens) != 4:
-                    raise Exception("%s:%d: Invalid git link format! Must be in the form of 'name path repo branch'" % (filename, index))
+                if (len(tokens) < 4) or ((len(tokens) % 2) != 0):
+                    raise Exception("%s:%d: Invalid git link format! Must be in the form of 'name path repo branch [base_path target_path]'" % (filename, index))
                 # Create a new git link record
                 gil_name = tokens[0]
                 gil_path = os.path.abspath(os.path.join(path, tokens[1]))
                 gil_repo = tokens[2]
                 gil_branch = tokens[3]
-                record = GilRecord(gil_name, gil_path, gil_repo, gil_branch)
+                gil_links = dict()
+                for i in range(4, len(tokens), 2):
+                    gil_links[tokens[i]] = tokens[i + 1]
+                record = GilRecord(gil_name, gil_path, gil_repo, gil_branch, gil_links)
                 # Try to find git link record in the records dictionary
                 found = os.path.exists(gil_path) and os.listdir(gil_path)
                 if record in self.records:
@@ -226,18 +233,13 @@ class GilContext(object):
                     dst_path = gil_path
                     # Add destination path to the result list
                     result.append(dst_path)
-                    if src_path == dst_path:
-                        # Do nothing here...
-                        pass
-                    elif os.path.exists(dst_path) and os.listdir(dst_path):
-                        # Check the link
-                        if os.path.islink(dst_path):
-                            real_path = os.readlink(dst_path)
-                            if real_path != src_path:
-                                # Re-create the link
-                                self.create_link(src_path, dst_path)
-                    else:
-                        self.create_link(src_path, dst_path)
+                    # Update root link
+                    self.update_link(src_path, dst_path)
+                    # Update record links if some exists
+                    for src, dst in record.links.items():
+                        src_link_path = os.path.abspath(os.path.join(src_path, src))
+                        dst_link_path = os.path.abspath(os.path.join(path, dst))
+                        self.update_link(src_link_path, dst_link_path)
                 # Validate git link path
                 if not found or not os.path.exists(gil_path) or not os.listdir(gil_path):
                     raise Exception("%s:%d: Invalid git link path! Please check %s git repository in %s" % (filename, index, gil_name, gil_path))
@@ -275,6 +277,21 @@ class GilContext(object):
         # Create the link
         os.symlink(src_path, dst_path, target_is_directory=True)
         print("Update git link: %s -> %s" % (src_path, dst_path))
+
+    @staticmethod
+    def update_link(src_path, dst_path):
+        if src_path == dst_path:
+            # Do nothing here...
+            pass
+        elif os.path.exists(dst_path) and os.listdir(dst_path):
+            # Check the link
+            if os.path.islink(dst_path):
+                real_path = os.readlink(dst_path)
+                if real_path != src_path:
+                    # Re-create the link
+                    GilContext.create_link(src_path, dst_path)
+        else:
+            GilContext.create_link(src_path, dst_path)
 
     # Git methods
 
