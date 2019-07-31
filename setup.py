@@ -9,6 +9,7 @@ if __name__ == "__main__":
         author="Ivan Shynkarenka",
         author_email="chronoxor@gmail.com",
         url="https://github.com/chronoxor/gil",
+        download_url = "https://github.com/chronoxor/gil/archive/1.10.0.0.tar.gz",
         description="Gil (git links) tool",
         long_description="Gil (git links) tool allows to describe and manage complex git repositories dependencies with cycles and cross references",
         license="MIT License",
