@@ -16,7 +16,7 @@ __author__ = "Ivan Shynkarenka"
 __email__ = "chronoxor@gmail.com"
 __license__ = "MIT License"
 __url__ = "https://github.com/chronoxor/gil"
-__version__ = "1.10.0.0"
+__version__ = "1.11.0.0"
 
 
 class GilRecord(object):
@@ -227,19 +227,19 @@ class GilContext(object):
                 found = os.path.exists(gil_path) and os.listdir(gil_path)
                 if record in self.records:
                     found = True
-                    record = self.records[record]
+                    base = self.records[record]
                     # Try to check or create link to the existing git link record
-                    src_path = record.path
+                    src_path = base.path
                     dst_path = gil_path
                     # Add destination path to the result list
                     result.append(dst_path)
                     # Update root link
                     self.update_link(src_path, dst_path)
-                    # Update record links if some exists
-                    for src, dst in record.links.items():
-                        src_link_path = os.path.abspath(os.path.join(src_path, src))
-                        dst_link_path = os.path.abspath(os.path.join(path, dst))
-                        self.update_link(src_link_path, dst_link_path)
+                # Update record links if some exists
+                for src, dst in record.links.items():
+                    src_link_path = os.path.abspath(os.path.join(src_path, src))
+                    dst_link_path = os.path.abspath(os.path.join(path, dst))
+                    self.update_link(src_link_path, dst_link_path)
                 # Validate git link path
                 if not found or not os.path.exists(gil_path) or not os.listdir(gil_path):
                     raise Exception("%s:%d: Invalid git link path! Please check %s git repository in %s" % (filename, index, gil_name, gil_path))
