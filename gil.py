@@ -16,7 +16,7 @@ __author__ = "Ivan Shynkarenka"
 __email__ = "chronoxor@gmail.com"
 __license__ = "MIT License"
 __url__ = "https://github.com/chronoxor/gil"
-__version__ = "1.12.0.0"
+__version__ = "1.13.0.0"
 
 
 class GilRecord(object):
@@ -275,8 +275,11 @@ class GilContext(object):
             else:
                 os.remove(dst_path)
         # Create the link
-        os.symlink(src_path, dst_path, target_is_directory=True)
-        print("Update git link: %s -> %s" % (src_path, dst_path))
+        if os.path.exists(src_path):
+            os.symlink(src_path, dst_path, target_is_directory=True)
+            print("Create git link: %s -> %s" % (src_path, dst_path))
+        else:
+            print("Cannot create git link! Path not found: %s" % src_path)
 
     @staticmethod
     def update_link(src_path, dst_path):
