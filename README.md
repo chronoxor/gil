@@ -25,7 +25,7 @@ This tool provides a solution to the [git recursive submodules dependency proble
 * OSX
 * Windows 10
 * [git](https://git-scm.com)
-* [python](https://www.python.org)
+* [python3](https://www.python.org)
 
 # Setup
 
