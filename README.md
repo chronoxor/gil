@@ -17,9 +17,12 @@ This tool provides a solution to the [git recursive submodules dependency proble
   * [Setup](#setup)
   * [Sample](#sample)
   * [Usage](#usage)
-  * [Motivation: submodules vs git links](#motivation-submodules-vs-git-links)
-    * [Submodules management](#submodules-management)
+  * [Motivation: git submodules vs git links](#motivation-git-submodules-vs-git-links)
+    * [Git submodules management](#git-submodules-management)
     * [Recursive submodules problem](#recursive-submodules-problem)
+  * [Motivation: git subtrees vs git links](#motivation-git-subtrees-vs-git-links)
+    * [Git subtrees management](#git-subtrees-management)
+    * [Subtrees manual management problem](#subtrees-manual-management-problem)
 
 # Requirements
 * Linux
@@ -228,12 +231,12 @@ Supported commands:
 * `gil commit [args]` - commit all repositories in the current directory;
 * `gil status [args]` - show status of all repositories in the current directory;
 
-# Motivation: submodules vs git links
+# Motivation: git submodules vs git links
 Git submodules allow to get the same idea of repositories dependency, but with
 a serious limitation - git submodules degrade to tree-like recursive structure
 with repositories duplication.
 
-## Submodules management
+## Git submodules management
 Git submodules provides several operations to manage repositories dependency.
 
 ### Add submodule dependency
@@ -335,3 +338,9 @@ All this issues are solved with gil (git links) tool which allows to link all
 required repositories together avoiding duplication. The tool also provides
 operations to manage changes in all repositories with a [simple easy to use
 commands](https://github.com/chronoxor/gil#usage).
+
+# Motivation: git subtrees vs git links
+
+## Git subtrees management
+
+## Subtrees manual management problem
