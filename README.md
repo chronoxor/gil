@@ -345,7 +345,7 @@ one repository inside another as a sub-directory.
 
 From the one side git subtrees are very lightweight with simple workflow. They
 don't add any metadata files like git submodule does (i.e., .gitmodule) and
-sub-project’s code is available right after the clone of the super project is
+sub-project's code is available right after the clone of the super project is
 done. Contents of the module can be modified without having a separate
 repository copy of the dependency somewhere else.
 
