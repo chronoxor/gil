@@ -340,7 +340,45 @@ operations to manage changes in all repositories with a [simple easy to use
 commands](https://github.com/chronoxor/gil#usage).
 
 # Motivation: git subtrees vs git links
+Git subtrees is an easy to use alternative to git submodules. It allows to nest
+one repository inside another as a sub-directory.
+
+From the one side git subtrees are very lightweight with simple workflow. They
+don't add any metadata files like git submodule does (i.e., .gitmodule) and
+sub-project’s code is available right after the clone of the super project is
+done. Contents of the module can be modified without having a separate
+repository copy of the dependency somewhere else.
+
+However they have several drawbacks. Contributing code back upstream for the
+sub-projects is slightly more complicated. And developer should be very careful
+of not mixing super and sub-project code in commits.
+
+Git subtrees requires precise manual management in case use have complicated
+projects structure and lots of upstream commits to dependent projects.
 
 ## Git subtrees management
+Git subtrees provides several operations to manage repositories dependency.
+
+### Add subtree dependency
+```shell
+# Add git subtree of 'master' branch into the relative directory 'modules/zlib'
+git subtree add -P modules/zlib https://github.com/madler/zlib.git master --squash
+```
+
+### Update subtree from the upstream remote repository
+```shell
+git subtree pull -P modules/zlib https://github.com/madler/zlib.git master --squash
+```
+
+### Contribute changes from subtree back to the upstream remote repository
+```shell
+git subtree push -P modules/zlib https://github.com/madler/zlib.git master
+```
+
+### Remove subtree dependency
+```shell
+# Remove git subtree from the relative directory 'modules/zlib'
+git rm -f modules/zlib
+```
 
 ## Subtrees manual management problem
