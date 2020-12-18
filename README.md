@@ -396,8 +396,8 @@ For instance `CppBenchmark` repository presented four times in our [sample](#sam
 ~/gil/sample/CppLogging/modules/CppCommon/modules/CppBenchmark - DUPLICATE!
 ```
 
-The first problem if somebody updated `CppBenchmark` and want to get the fix
-in all dependent repositories we have to update them manually with the set of
+The first problem if you updated `CppBenchmark` and want to get the fix in all
+dependent repositories we have to update them manually with the set of
 `git subtree pull` commands:
 ```shell
 # Commit and push changes in CppBenchmark repository
@@ -420,9 +420,9 @@ git push
 cd ..
 ```
 
-The second problem if we found a bug in `CppBenchmark` while debugging `CppLogging`
-and want to fix it in place, push the changes and update all repositories
-properly. In this case we need to make the following steps:
+The second problem if you found a bug in `CppBenchmark` while debugging
+`CppLogging` and want to fix it in place, push the changes and update all
+repositories properly. In this case you need to make the following steps:
 ```shell
 # Commit and push changes in CppBenchmark but from CppLogging repository
 cd CppLogging
