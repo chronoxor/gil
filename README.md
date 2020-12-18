@@ -397,7 +397,7 @@ For instance `CppBenchmark` repository presented four times in our [sample](#sam
 ```
 
 The first problem if you updated `CppBenchmark` and want to get the fix in all
-dependent repositories we have to update them manually with the set of
+dependent repositories you have to update them manually with the set of
 `git subtree pull` commands:
 ```shell
 # Commit and push changes in CppBenchmark repository
