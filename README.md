@@ -306,12 +306,14 @@ following:
 ~/gil/sample/CppLogging/cmake - DUPLICATE!
 ~/gil/sample/CppLogging/modules/Catch2 - DUPLICATE!
 ~/gil/sample/CppLogging/modules/cpp-optparse - DUPLICATE!
+~/gil/sample/CppLogging/modules/CppBenchmark - DUPLICATE!
 ~/gil/sample/CppLogging/modules/CppBenchmark/build - DUPLICATE!
 ~/gil/sample/CppLogging/modules/CppBenchmark/cmake - DUPLICATE!
 ~/gil/sample/CppLogging/modules/CppBenchmark/modules/Catch2 - DUPLICATE!
 ~/gil/sample/CppLogging/modules/CppBenchmark/modules/cpp-optparse - DUPLICATE!
 ~/gil/sample/CppLogging/modules/CppBenchmark/modules/HdrHistogram - DUPLICATE!
 ~/gil/sample/CppLogging/modules/CppBenchmark/modules/zlib - DUPLICATE!
+~/gil/sample/CppLogging/modules/CppCommon - DUPLICATE!
 ~/gil/sample/CppLogging/modules/CppCommon/build - DUPLICATE!
 ~/gil/sample/CppLogging/modules/CppCommon/cmake - DUPLICATE!
 ~/gil/sample/CppLogging/modules/CppCommon/modules/Catch2 - DUPLICATE!
@@ -382,3 +384,64 @@ git rm -f modules/zlib
 ```
 
 ## Subtrees manual management problem
+Initially git subtrees lack of the same [repository duplicate problem](#recursive-submodules-problem)
+which git submodules have. Therefore all repositories with multiple dependencies
+will be duplicated and require manual and careful management.
+
+For instance `CppBenchmark` repository presented four times in our [sample](#sample):
+```shell
+~/gil/sample/CppBenchmark
+~/gil/sample/CppCommon/modules/CppBenchmark - DUPLICATE!
+~/gil/sample/CppLogging/modules/CppBenchmark - DUPLICATE!
+~/gil/sample/CppLogging/modules/CppCommon/modules/CppBenchmark - DUPLICATE!
+```
+
+The first problem if somebody updated `CppBenchmark` and want to get the fix
+in all dependent repositories we have to update them manually with the set of
+`git subtree pull` commands:
+```shell
+# Update CppCommon repository
+cd CppCommon
+git subtree pull --prefix modules/CppBenchmark https://github.com/chronoxor/test-CppBenchmark.git main --squash
+git push
+
+# Update CppLogging repository
+cd CppLogging
+git subtree pull --prefix modules/CppBenchmark https://github.com/chronoxor/test-CppBenchmark.git main --squash
+git subtree pull --prefix modules/CppCommon https://github.com/chronoxor/test-CppCommon.git main --squash
+git push
+```
+
+The second problem if we found a bug in `CppBenchmark` while debugging `CppLogging`
+and want to fix it in place, push the changes and update all repositories
+properly. In this case we need to make the following steps:
+```shell
+# Commit and push changes from CppLogging repository
+cd CppLogging
+git commit -a -m "Bugfix in CppBenchmark (found in CppLogging repository)"
+git push
+git subtree push --prefix modules/CppBenchmark https://github.com/chronoxor/test-CppBenchmark.git main --squash
+
+# Update CppBenchmark repository
+cd CppBenchmark
+git pull
+
+# Update CppCommon repository
+cd CppCommon
+git subtree pull --prefix modules/CppBenchmark https://github.com/chronoxor/test-CppBenchmark.git main --squash
+git push
+
+# Update CppLogging repository
+cd CppLogging
+git subtree pull --prefix modules/CppBenchmark https://github.com/chronoxor/test-CppBenchmark.git main --squash
+git subtree pull --prefix modules/CppCommon https://github.com/chronoxor/test-CppCommon.git main --squash
+git push
+```
+
+As the result too much manual work should be done to make all repositories up
+to date. Definitely all commands should be stored into scripts with care. And
+this job requires some efforts and testing because it is very easy to make a
+mistake. Git subtrees are good and easy to use for small repositories without
+complicated hierarchy. But working with huge complicated repositories using
+git subtrees is a big challenge as git subtrees do not suppot recursing
+pull/push/update commands.
