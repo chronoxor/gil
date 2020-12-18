@@ -400,42 +400,54 @@ The first problem if somebody updated `CppBenchmark` and want to get the fix
 in all dependent repositories we have to update them manually with the set of
 `git subtree pull` commands:
 ```shell
+# Commit and push changes in CppBenchmark repository
+cd CppBenchmark
+git commit -a -m "Bugfix in CppBenchmark"
+git push
+cd ..
+
 # Update CppCommon repository
 cd CppCommon
 git subtree pull --prefix modules/CppBenchmark https://github.com/chronoxor/test-CppBenchmark.git main --squash
 git push
+cd ..
 
 # Update CppLogging repository
 cd CppLogging
 git subtree pull --prefix modules/CppBenchmark https://github.com/chronoxor/test-CppBenchmark.git main --squash
 git subtree pull --prefix modules/CppCommon https://github.com/chronoxor/test-CppCommon.git main --squash
 git push
+cd ..
 ```
 
 The second problem if we found a bug in `CppBenchmark` while debugging `CppLogging`
 and want to fix it in place, push the changes and update all repositories
 properly. In this case we need to make the following steps:
 ```shell
-# Commit and push changes from CppLogging repository
+# Commit and push changes in CppBenchmark but from CppLogging repository
 cd CppLogging
 git commit -a -m "Bugfix in CppBenchmark (found in CppLogging repository)"
 git push
 git subtree push --prefix modules/CppBenchmark https://github.com/chronoxor/test-CppBenchmark.git main --squash
+cd ..
 
 # Update CppBenchmark repository
 cd CppBenchmark
 git pull
+cd ..
 
 # Update CppCommon repository
 cd CppCommon
 git subtree pull --prefix modules/CppBenchmark https://github.com/chronoxor/test-CppBenchmark.git main --squash
 git push
+cd ..
 
 # Update CppLogging repository
 cd CppLogging
 git subtree pull --prefix modules/CppBenchmark https://github.com/chronoxor/test-CppBenchmark.git main --squash
 git subtree pull --prefix modules/CppCommon https://github.com/chronoxor/test-CppCommon.git main --squash
 git push
+cd ..
 ```
 
 As the result too much manual work should be done to make all repositories up
