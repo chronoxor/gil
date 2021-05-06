@@ -34,7 +34,7 @@ This tool provides a solution to the [git recursive submodules dependency proble
 # Setup
 
 ```shell
-pip3 install gil
+sudo pip3 install --prefix /usr/local gil
 ```
 
 # Sample
