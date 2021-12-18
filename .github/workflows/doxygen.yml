@@ -36,6 +36,6 @@ jobs:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          cd CppLogging/build/Unix
+          cd sample/CppLogging/build/Unix
           01-generate.sh
           05-doxygen.sh
