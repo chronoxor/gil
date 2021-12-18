@@ -23,4 +23,4 @@ jobs:
       - name: "Build"
         run: |
           cd sample/CppLogging/build
-          unix.sh
+          ./unix.sh

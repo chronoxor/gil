@@ -26,4 +26,4 @@ jobs:
       - name: "Build"
         run: |
           cd sample/CppLogging/build
-          vs.bat
+          ./vs.bat

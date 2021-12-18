@@ -37,4 +37,4 @@ jobs:
       - name: "Build"
         run: |
           cd $GITHUB_WORKSPACE/sample/CppLogging/build
-          unix.sh
+          ./unix.sh

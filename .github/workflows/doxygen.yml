@@ -37,5 +37,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd sample/CppLogging/build/Unix
-          01-generate.sh
-          05-doxygen.sh
+          ./01-generate.sh
+          ./05-doxygen.sh

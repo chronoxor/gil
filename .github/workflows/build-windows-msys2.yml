@@ -39,4 +39,4 @@ jobs:
           LIB: C:\msys64\usr\lib\w32api
         run: |
           cd sample/CppLogging/build
-          unix.sh
+          ./unix.sh
