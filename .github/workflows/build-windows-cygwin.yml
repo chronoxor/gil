@@ -27,20 +27,14 @@ jobs:
       - name: "Setup cmake"
         run: cmake --version
 
-      - name: "Change directory: $GITHUB_WORKSPACE"
-        run: cd $GITHUB_WORKSPACE
-
-      - name: "Change directory: sample"
-        run: cd sample
-
       - name: "Setup gil"
         shell: cmd
         run: |
           pip3 install gil
+          cd $GITHUB_WORKSPACE/sample
           gil update
 
-      - name: "Change directory: build"
-        run: cd build
-
       - name: "Build"
-        run: unix.sh
+        run: |
+          cd build
+          unix.sh

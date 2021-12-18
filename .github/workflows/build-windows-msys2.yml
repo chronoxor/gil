@@ -27,19 +27,16 @@ jobs:
       - name: "Setup cmake"
         run: cmake --version
 
-      - name: "Change directory: sample"
-        run: cd sample
-
       - name: "Setup gil"
         run: |
           pip3 install gil
+          cd sample
           gil update
-
-      - name: "Change directory: build"
-        run: cd build
 
       - name: "Build"
         env:
           INCLUDE: C:\msys64\usr\include\w32api
           LIB: C:\msys64\usr\lib\w32api
-        run: unix.sh
+        run: |
+          cd build
+          unix.sh

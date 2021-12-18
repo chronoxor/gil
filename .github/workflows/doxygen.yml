@@ -25,21 +25,17 @@ jobs:
           doxygen --version
           dot -V
 
-      - name: "Change directory: sample"
-        run: cd sample
-
       - name: "Setup gil"
         run: |
           pip3 install gil
+          cd sample
           gil update
-
-      - name: "Change directory: build/Unix"
-        run: cd build/Unix
 
       - name: "Doxygen"
         env:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          ./01-generate.sh
-          ./05-doxygen.sh
+          cd build/Unix
+          01-generate.sh
+          05-doxygen.sh

@@ -17,19 +17,16 @@ jobs:
       - name: "Setup cmake"
         run: cmake --version
 
-      - name: "Change directory: sample"
-        run: cd sample
-
       - name: "Setup gil"
         run: |
           pip3 install gil
+          cd sample
           gil update
-
-      - name: "Change directory: build"
-        run: cd build
 
       - name: "Build"
         env:
           INCLUDE: C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\x86_64-w64-mingw32\include
           LIB: C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\x86_64-w64-mingw32\lib
-        run: mingw.bat
+        run: |
+          cd build
+          mingw.bat
