@@ -31,7 +31,7 @@ jobs:
         shell: cmd
         run: |
           pip3 install gil
-          cd $GITHUB_WORKSPACE/sample
+          cd sample
           gil update
 
       - name: "Build"
