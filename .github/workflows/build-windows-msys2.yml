@@ -38,5 +38,5 @@ jobs:
           INCLUDE: C:\msys64\usr\include\w32api
           LIB: C:\msys64\usr\lib\w32api
         run: |
-          cd build
+          cd CppLogging/build
           unix.sh

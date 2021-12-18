@@ -22,5 +22,5 @@ jobs:
 
       - name: "Build"
         run: |
-          cd build
+          cd CppLogging/build
           unix.sh
