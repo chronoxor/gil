@@ -1,11 +1,14 @@
 # Gil (git links) tool
 
-[![Linux build status](https://img.shields.io/travis/chronoxor/gil/master.svg?label=Linux)](https://travis-ci.com/chronoxor/gil)
-[![OSX build status](https://img.shields.io/travis/chronoxor/gil/master.svg?label=OSX)](https://travis-ci.com/chronoxor/gil)
-[![Cygwin build status](https://img.shields.io/appveyor/ci/chronoxor/gil/master.svg?label=Cygwin)](https://ci.appveyor.com/project/chronoxor/gil)
-[![MSYS2 build status](https://img.shields.io/appveyor/ci/chronoxor/gil/master.svg?label=MSYS2)](https://ci.appveyor.com/project/chronoxor/gil)
-[![MinGW build status](https://img.shields.io/appveyor/ci/chronoxor/gil/master.svg?label=MinGW)](https://ci.appveyor.com/project/chronoxor/gil)
-[![Windows build status](https://img.shields.io/appveyor/ci/chronoxor/gil/master.svg?label=Windows)](https://ci.appveyor.com/project/chronoxor/gil)
+![Linux (clang)](https://github.com/chronoxor/gil/actions/workflows/build-linux-clang.yml/badge.svg)
+![Linux (gcc)](https://github.com/chronoxor/gil/actions/workflows/build-linux-gcc.yml/badge.svg)
+<br/>
+![MacOS](https://github.com/chronoxor/gil/actions/workflows/build-macos.yml/badge.svg)
+<br/>
+![Windows (Cygwin)](https://github.com/chronoxor/gil/actions/workflows/build-windows-cygwin.yml/badge.svg)
+![Windows (MinGW)](https://github.com/chronoxor/gil/actions/workflows/build-windows-mingw.yml/badge.svg)
+![Windows (MSYS2)](https://github.com/chronoxor/gil/actions/workflows/build-windows-msys2.yml/badge.svg)
+![Windows (Visual Studio)](https://github.com/chronoxor/gil/actions/workflows/build-windows-msvc.yml/badge.svg)
 
 Gil is a git links tool to manage complex git repositories dependencies with
 cycles and cross references.
@@ -26,7 +29,7 @@ This tool provides a solution to the [git recursive submodules dependency proble
 
 # Requirements
 * Linux
-* OSX
+* MacOS
 * Windows 10
 * [git](https://git-scm.com)
 * [python3](https://www.python.org)
