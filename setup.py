@@ -18,7 +18,7 @@ if __name__ == "__main__":
         classifiers=[
             "Operating System :: POSIX",
             "Operating System :: MacOS :: MacOS X",
-            "Operating System :: MICROSOFT :: WINDOWS",
+            "Operating System :: Microsoft :: Windows",
             "Programming Language :: Python :: 3"
         ]
     )
