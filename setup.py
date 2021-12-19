@@ -16,8 +16,9 @@ if __name__ == "__main__":
         scripts=["gil.py", "gil.bat", "gil"],
         platforms="Linux, MacOS, Windows",
         classifiers=[
-            "Operating System :: MacOS :: MacOS X",
             "Operating System :: POSIX",
+            "Operating System :: MacOS :: MacOS X",
+            "Operating System :: MICROSOFT :: WINDOWS",
             "Programming Language :: Python :: 3"
         ]
     )
