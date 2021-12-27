@@ -11,12 +11,13 @@ import os
 import re
 import subprocess
 import sys
+import time
 
 __author__ = "Ivan Shynkarenka"
 __email__ = "chronoxor@gmail.com"
 __license__ = "MIT License"
 __url__ = "https://github.com/chronoxor/gil"
-__version__ = "1.16.0.0"
+__version__ = "1.17.0.0"
 
 
 class GilRecord(object):
@@ -303,9 +304,15 @@ class GilContext(object):
         # Call git clone command
         print("Running git clone %s branch \"%s\" into %s" % (repo, branch, path))
         params = ["git", "clone", *args, "-b", branch, repo, path]
-        process = subprocess.run(params)
-        if process.returncode != 0:
-            raise Exception("Failed to run git clone %s branch \"%s\" into %s" % (repo, branch, path))
+        attempt = 1
+        while attempt <= 10:
+          process = subprocess.run(params)
+          if process.returncode == 0:
+            return
+          print("Failed to run git clone %s branch \"%s\" into %s. Attempt %d..." % (repo, branch, path, attempt))
+          time.sleep(10)
+          attempt += 1
+        raise Exception("Failed to run git clone %s branch \"%s\" into %s" % (repo, branch, path))
 
     @staticmethod
     def git_checkout(path, branch):
