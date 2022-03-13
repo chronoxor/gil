@@ -17,7 +17,7 @@ __author__ = "Ivan Shynkarenka"
 __email__ = "chronoxor@gmail.com"
 __license__ = "MIT License"
 __url__ = "https://github.com/chronoxor/gil"
-__version__ = "1.17.0.0"
+__version__ = "1.18.0.0"
 
 
 class GilRecord(object):
@@ -137,7 +137,7 @@ class GilContext(object):
                 gil_branch = tokens[3]
                 gil_links = dict()
                 for i in range(4, len(tokens), 2):
-                    gil_links[tokens[i]] = tokens[i + 1]
+                    gil_links[tokens[i + 1]] = tokens[i]
                 record = GilRecord(gil_name, gil_path, gil_repo, gil_branch, gil_links)
                 # Try to find git link record in the records dictionary
                 if record not in self.records:
@@ -237,7 +237,7 @@ class GilContext(object):
                     # Update root link
                     self.update_link(src_path, dst_path)
                 # Update record links if some exists
-                for src, dst in record.links.items():
+                for dst, src in record.links.items():
                     src_link_path = os.path.abspath(os.path.join(src_path, src))
                     dst_link_path = os.path.abspath(os.path.join(path, dst))
                     self.update_link(src_link_path, dst_link_path)
