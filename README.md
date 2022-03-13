@@ -30,7 +30,7 @@ This tool provides a solution to the [git recursive submodules dependency proble
 # Requirements
 * Linux
 * MacOS
-* Windows 10
+* Windows
 * [git](https://git-scm.com)
 * [python3](https://www.python.org)
 
