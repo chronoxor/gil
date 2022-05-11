@@ -17,7 +17,7 @@ __author__ = "Ivan Shynkarenka"
 __email__ = "chronoxor@gmail.com"
 __license__ = "MIT License"
 __url__ = "https://github.com/chronoxor/gil"
-__version__ = "1.19.0.0"
+__version__ = "1.20.0.0"
 
 
 class GilRecord(object):
@@ -303,7 +303,7 @@ class GilContext(object):
     def git_clone(path, repo, branch, args):
         # Call git clone command
         print("Running git clone %s branch \"%s\" into %s" % (repo, branch, path))
-        params = ["git", "clone", *args, "-b", branch, repo, path]
+        params = ["git", "clone", *args, "-b", branch, repo, "--recurse-submodules", path]
         attempt = 1
         while attempt <= 10:
           process = subprocess.run(params)
