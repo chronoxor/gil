@@ -5,19 +5,26 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "gil"
 version = "1.22.0.0"
-author = "Ivan Shynkarenka"
-author_email = "chronoxor@gmail.com"
-url = "https://github.com/chronoxor/gil"
-download_url = "https://github.com/chronoxor/gil/archive/refs/tags/1.22.0.0.tar.gz"
 description = "Gil (git links) tool"
-long_description = "Gil (git links) tool allows to describe and manage complex git repositories dependencies with cycles and cross references"
-license = "MIT License"
+readme = "README.md"
 requires-python = ">=3.7"
-scripts = ["gil.py", "gil.bat", "gil"]
-platforms = "Linux, MacOS, Windows"
+license = {file = "LICENSE"}
+authors = [{name = "Ivan Shynkarenka"}, {email = "chronoxor@gmail.com"}]
+keywords = ["git", "git-addons", "devops-tools", "subtree", "submodule", "dependency-links"]
 classifiers = [
     "Operating System :: POSIX",
     "Operating System :: MacOS :: MacOS X",
     "Operating System :: Microsoft :: Windows",
-    "Programming Language :: Python :: 3"
+    "Programming Language :: Python :: 3",
+    "Topic :: Software Development :: Build Tools",
+    "Topic :: Software Development :: Libraries :: Python Modules"
 ]
+
+[project.urls]
+homepage = "https://github.com/chronoxor/gil"
+documentation = "https://github.com/chronoxor/gil"
+repository = "https://github.com/chronoxor/gil"
+
+[tool.setuptools]
+platforms = ["Linux", "MacOS", "Windows"]
+py-modules = []
