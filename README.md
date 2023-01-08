@@ -13,6 +13,9 @@
 Gil is a git links tool to manage tree-based recursive repositories dependencies
 with cross references.
 
+> **⚠ Repository links wtih cycles are not supported due to limitations in
+> original git**
+
 This tool provides a solution to the [git recursive submodules dependency problem](https://github.com/chronoxor/gil#recursive-submodules-problem).
 
 # Contents
