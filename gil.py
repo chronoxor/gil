@@ -17,7 +17,7 @@ __author__ = "Ivan Shynkarenka"
 __email__ = "chronoxor@gmail.com"
 __license__ = "MIT License"
 __url__ = "https://github.com/chronoxor/gil"
-__version__ = "1.23.0.0"
+__version__ = "1.24.0.0"
 
 
 class GilRecord(object):
@@ -59,10 +59,12 @@ class GilRecord(object):
 
 
 class GilContext(object):
-    def __init__(self, path):
+    def __init__(self, path, depth):
         self.records = collections.OrderedDict()
         self.path = os.path.abspath(path)
+        self.depth = depth
         print("Working path: %s" % self.path)
+        print("Recursive depth: %s" % self.depth)
 
     def show(self):
         print("Gil context:")
@@ -84,14 +86,18 @@ class GilContext(object):
             filename = os.path.join(parent, ".gitlinks")
             if os.path.exists(filename):
                 root = parent
-        self.discover_recursive(root)
+        self.discover_recursive(root, 1)
 
         # Mark active records
         for record in self.records:
             if record.path.startswith(current):
                 record.active = True
 
-    def discover_recursive(self, path):
+    def discover_recursive(self, path, level):
+        # Limit the discovering recursion depth
+        if level > self.depth:
+            return
+
         current = os.path.abspath(path)
 
         # Discover the current directory
@@ -104,7 +110,7 @@ class GilContext(object):
 
         # Discover all child directories
         for record in records:
-            self.discover_recursive(record.path)
+            self.discover_recursive(record.path, level + 1)
 
     def discover_path(self, path):
         # Try to find .gitlinks file
@@ -177,9 +183,9 @@ class GilContext(object):
             filename = os.path.join(parent, ".gitlinks")
             if os.path.exists(filename):
                 root = parent
-        self.link_recursive(root)
+        self.link_records(root)
 
-    def link_recursive(self, path):
+    def link_records(self, path):
         current = os.path.abspath(path)
 
         # Link the current directory
@@ -393,7 +399,7 @@ def main():
     path = os.getcwd()
 
     # Create git links context
-    context = GilContext(path)
+    context = GilContext(path, 100)
 
     # Discover working path
     context.discover(path)

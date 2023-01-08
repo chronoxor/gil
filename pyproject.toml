@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "gil"
-version = "1.23.0.0"
+version = "1.24.0.0"
 description = "Gil (git links) tool"
 readme = "README.md"
 requires-python = ">=3.7"
