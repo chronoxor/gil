@@ -17,7 +17,7 @@ __author__ = "Ivan Shynkarenka"
 __email__ = "chronoxor@gmail.com"
 __license__ = "MIT License"
 __url__ = "https://github.com/chronoxor/gil"
-__version__ = "1.24.0.0"
+__version__ = "1.25.0.0"
 
 
 class GilRecord(object):
@@ -64,7 +64,6 @@ class GilContext(object):
         self.path = os.path.abspath(path)
         self.depth = depth
         print("Working path: %s" % self.path)
-        print("Recursive depth: %s" % self.depth)
 
     def show(self):
         print("Gil context:")
@@ -86,7 +85,7 @@ class GilContext(object):
             filename = os.path.join(parent, ".gitlinks")
             if os.path.exists(filename):
                 root = parent
-        self.discover_recursive(root, 1)
+        self.discover_recursive(root, 0)
 
         # Mark active records
         for record in self.records:
@@ -95,8 +94,8 @@ class GilContext(object):
 
     def discover_recursive(self, path, level):
         # Limit the discovering recursion depth
-        if level > self.depth:
-            return
+        if level >= self.depth:
+            raise Exception("Maximum function recursion depth (%d) reached" % level)
 
         current = os.path.abspath(path)
 
@@ -399,7 +398,7 @@ def main():
     path = os.getcwd()
 
     # Create git links context
-    context = GilContext(path, 100)
+    context = GilContext(path, 1000)
 
     # Discover working path
     context.discover(path)
