@@ -10,8 +10,8 @@
 [![Windows (MinGW)](https://github.com/chronoxor/gil/actions/workflows/build-windows-mingw.yml/badge.svg)](https://github.com/chronoxor/gil/actions/workflows/build-windows-mingw.yml)
 [![Windows (Visual Studio)](https://github.com/chronoxor/gil/actions/workflows/build-windows-vs.yml/badge.svg)](https://github.com/chronoxor/gil/actions/workflows/build-windows-vs.yml)
 
-Gil is a git links tool to manage complex git repositories dependencies with
-cycles and cross references.
+Gil is a git links tool to manage tree-based recursive repositories dependencies
+with cross references.
 
 This tool provides a solution to the [git recursive submodules dependency problem](https://github.com/chronoxor/gil#recursive-submodules-problem).
 
@@ -236,7 +236,7 @@ Supported commands:
 
 # Motivation: git submodules vs git links
 Git submodules allow to get the same idea of repositories dependency, but with
-a serious limitation - git submodules degrade to tree-like recursive structure
+a serious limitation - git submodules degrade to tree-based recursive structure
 with repositories duplication.
 
 ## Git submodules management
