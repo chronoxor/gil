@@ -40,6 +40,14 @@ This tool provides a solution to the [git recursive submodules dependency proble
 sudo pip3 install --prefix /usr/local gil
 ```
 
+## Non-sudo setup
+
+```shell
+pip3 install gil
+echo 'PATH="$HOME/.local/bin/:$PATH"' >> ~/.bashrc # or the .bashrc equivalent for your shell, e.g. .zshrc for zsh
+# Restart terminal
+```
+
 # Sample
 Consider we have the following git repository dependency graph:
 
