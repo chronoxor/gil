@@ -1,8 +1,10 @@
 # Gil (git links) tool
 
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Release](https://img.shields.io/github/release/chronoxor/gil.svg?sort=semver)](https://github.com/chronoxor/gil/releases)
+<br/>
 [![Linux (clang)](https://github.com/chronoxor/gil/actions/workflows/build-linux-clang.yml/badge.svg)](https://github.com/chronoxor/gil/actions/workflows/build-linux-clang.yml)
 [![Linux (gcc)](https://github.com/chronoxor/gil/actions/workflows/build-linux-gcc.yml/badge.svg)](https://github.com/chronoxor/gil/actions/workflows/build-linux-gcc.yml)
-<br/>
 [![MacOS](https://github.com/chronoxor/gil/actions/workflows/build-macos.yml/badge.svg)](https://github.com/chronoxor/gil/actions/workflows/build-macos.yml)
 <br/>
 [![Windows (Cygwin)](https://github.com/chronoxor/gil/actions/workflows/build-windows-cygwin.yml/badge.svg)](https://github.com/chronoxor/gil/actions/workflows/build-windows-cygwin.yml)
